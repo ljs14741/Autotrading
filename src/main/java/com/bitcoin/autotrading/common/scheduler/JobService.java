@@ -1,6 +1,5 @@
 package com.bitcoin.autotrading.common.scheduler;
 
-public class scheduler {
-
+public class JobService {
 
 }

@@ -22,7 +22,8 @@ dependencies {
 
     //타이머 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-quartz'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     //db
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

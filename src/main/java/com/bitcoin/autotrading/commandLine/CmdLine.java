@@ -26,9 +26,10 @@ public class CmdLine implements ApplicationRunner {
         for(int i=0; i<args.getSourceArgs().length; i++){
             log.info("input=["+args.getSourceArgs()[i]+"]");
             programLogRepository.save( ProgramLog.builder()
-                    .programid("스프링부트실행")
-                    .argument1(args.getSourceArgs()[i])
-                    .build()
+                            .id(1)
+                            .programid("스프링부트실행")
+                            .argument1(args.getSourceArgs()[i])
+                            .build()
             );
         }
     }

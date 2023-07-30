@@ -11,4 +11,5 @@ public class AutoTradingApplication {
         SpringApplication.run(AutoTradingApplication.class, args);
     }
 
+    /*테스트*/
 }

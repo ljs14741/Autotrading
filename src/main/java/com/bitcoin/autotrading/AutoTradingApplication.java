@@ -12,4 +12,5 @@ public class AutoTradingApplication {
         SpringApplication.run(AutoTradingApplication.class, args);
     }
 
+    /*ㅌㅌㅌ*/
 }

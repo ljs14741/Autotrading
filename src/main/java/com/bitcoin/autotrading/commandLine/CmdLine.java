@@ -17,7 +17,9 @@ public class CmdLine implements ApplicationRunner {
     public CmdLine(final ProgramLogRepository programLogRepository){
         this.programLogRepository=programLogRepository;
     }
-
+    /*
+        jinsu test
+        */
     /*
     java 빌드 구성에서 프로그램 인수 출력
     */

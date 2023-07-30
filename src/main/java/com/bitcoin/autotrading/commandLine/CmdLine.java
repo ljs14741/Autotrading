@@ -2,7 +2,9 @@ package com.bitcoin.autotrading.commandLine;
 
 import com.bitcoin.autotrading.commandLine.domain.ProgramLog;
 import com.bitcoin.autotrading.commandLine.domain.repository.ProgramLogRepository;
+import com.bitcoin.autotrading.commandLine.service.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -14,8 +16,12 @@ import org.springframework.stereotype.Component;
 public class CmdLine implements ApplicationRunner {
     private final ProgramLogRepository programLogRepository;
 
+    @Autowired
+    private Api api;
+
     public CmdLine(final ProgramLogRepository programLogRepository){
         this.programLogRepository=programLogRepository;
+
     }
     /*
         jinsu test
@@ -34,7 +40,10 @@ public class CmdLine implements ApplicationRunner {
                             .argument1(args.getSourceArgs()[i])
                             .build()
             );
+            api.main();
         }
+
+
     }
 
 }

@@ -1,4 +1,5 @@
 package com.bitcoin.autotrading.commandLine.service;
+import ch.qos.logback.core.joran.spi.ConsoleTarget;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -19,9 +22,9 @@ import java.util.UUID;
 @Slf4j
 public class Api {
 
-
+    @Scheduled(fixedDelay = 30000) //일정시간마다 아래 함수 실행하는 스케쥴러 (1000 -> 1초)
     public void main() {
-
+        System.out.println("123123");
         String accessKey = System.getenv("UPBIT_OPEN_API_ACCESS_KEY");
         String secretKey = System.getenv("UPBIT_OPEN_API_SECRET_KEY");
         String serverUrl = System.getenv("UPBIT_OPEN_API_SERVER_URL");

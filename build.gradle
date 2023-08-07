@@ -39,6 +39,9 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.apache.httpcomponents:httpclient'
+
+    // okhttp
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
 }
 
 tasks.named('test') {

@@ -66,7 +66,7 @@ public class GetOrdersChance {
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
 
-            System.out.println(EntityUtils.toString(entity, "UTF-8"));
+            System.out.println("주문가능정보 -> " + EntityUtils.toString(entity, "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }

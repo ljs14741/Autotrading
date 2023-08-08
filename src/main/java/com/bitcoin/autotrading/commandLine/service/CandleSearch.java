@@ -5,9 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Component;
+import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Component
 @NoArgsConstructor
@@ -27,7 +32,7 @@ public class CandleSearch {
                 .build();
 
         Response response = client.newCall(request).execute();
+        log.info("시세캔틀조회 -> " + response.body().string());
 
-        log.info("response -> " + response.body().string());
     }
 }

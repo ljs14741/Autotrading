@@ -5,10 +5,12 @@ import com.bitcoin.autotrading.commandLine.domain.repository.ProgramLogRepositor
 import com.bitcoin.autotrading.commandLine.service.Api;
 import com.bitcoin.autotrading.commandLine.service.CandleSearch;
 import com.bitcoin.autotrading.commandLine.service.GetOrdersChance;
+import com.bitcoin.autotrading.commandLine.service.GetRsiByMinutes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +31,8 @@ public class CmdLine implements ApplicationRunner {
     private CandleSearch candleSearch;
 
     @Autowired
+    private GetRsiByMinutes getRsiByMinutes;
+    @Autowired
     private GetOrdersChance getOrdersChance;
 
     public CmdLine(final ProgramLogRepository programLogRepository){
@@ -40,7 +44,7 @@ public class CmdLine implements ApplicationRunner {
     java 빌드 구성에서 프로그램 인수 출력
     */
     @Override
-    public void run(final ApplicationArguments args) throws IOException, InterruptedException, NoSuchAlgorithmException {
+    public void run(final ApplicationArguments args) throws IOException, InterruptedException, NoSuchAlgorithmException, JSONException {
         for(int i=0; i<args.getSourceArgs().length; i++){
             log.info("input=["+args.getSourceArgs()[i]+"]");
             programLogRepository.save( ProgramLog.builder()
@@ -52,7 +56,7 @@ public class CmdLine implements ApplicationRunner {
             api.main();
             candleSearch.main();
             getOrdersChance.main();
-
+            getRsiByMinutes.main();
         }
 
 

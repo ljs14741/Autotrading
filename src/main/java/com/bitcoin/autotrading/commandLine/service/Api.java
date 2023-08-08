@@ -47,7 +47,7 @@ public class Api {
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
 
-            log.info(EntityUtils.toString(entity, "UTF-8"));
+            log.info("내 계좌조회" + EntityUtils.toString(entity, "UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }

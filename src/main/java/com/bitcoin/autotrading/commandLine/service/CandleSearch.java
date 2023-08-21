@@ -25,8 +25,9 @@ public class CandleSearch {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=14")
+                //.url("https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=14")
                 // .url("https://api.upbit.com/v1/candles/days?count=1")
+                .url("https://api.upbit.com/v1/candles/days?count=1")
                 .get()
                 .addHeader("accept", "application/json")
                 .build();

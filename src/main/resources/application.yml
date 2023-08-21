@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
   jpa:
     open-in-view: false
     hibernate:

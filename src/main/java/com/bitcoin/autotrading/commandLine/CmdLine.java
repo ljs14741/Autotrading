@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.commandLine;
 
+import com.bitcoin.autotrading.commandLine.Controller.StartController;
 import com.bitcoin.autotrading.commandLine.domain.ProgramLog;
 import com.bitcoin.autotrading.commandLine.domain.repository.ProgramLogRepository;
 import com.bitcoin.autotrading.commandLine.service.Api;
@@ -53,6 +54,9 @@ public class CmdLine implements ApplicationRunner {
                             .argument1(args.getSourceArgs()[i])
                             .build()
             );
+
+            log.info("startController.index()");
+            StartController.index();
             api.main();
             candleSearch.main();
             getOrdersChance.main();

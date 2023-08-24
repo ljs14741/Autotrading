@@ -1,4 +1,4 @@
-package com.bitcoin.autotrading.commandLine.service;
+package com.bitcoin.autotrading.candle.service;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

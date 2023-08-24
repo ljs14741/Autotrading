@@ -69,7 +69,7 @@
     </tr>
     <tr style="height: 21px;">
       <td style="height: 21px; width: 203.538px;">매도조건</td>
-      <td style="height: 21px; width: 268.862px;">값</td>
+      <td style="height: 21px; width: 268.862px;">rsi값: ${requestScope.rsi}</td>
     </tr>
   </table>
   <button>백테스팅 시작</button>

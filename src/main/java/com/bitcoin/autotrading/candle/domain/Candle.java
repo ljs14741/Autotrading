@@ -1,4 +1,4 @@
-package com.bitcoin.autotrading.commandLine.domain;
+package com.bitcoin.autotrading.candle.domain;
 
 import lombok.Getter;
 import lombok.Setter;

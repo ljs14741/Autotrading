@@ -1,4 +1,4 @@
-package com.bitcoin.autotrading.commandLine.service;
+package com.bitcoin.autotrading.candle.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.*;
@@ -26,8 +25,8 @@ public class GetRsiByMinutes {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.upbit.com/v1/candles/minutes/240?market=KRW-BTC&count=14") // miniue 오른쪽 숫자는 몇분봉 , 맨오른쪽 숫자는 출력개수
-                // .url("https://api.upbit.com/v1/candles/days?count=1")
+                //.url("https://api.upbit.com/v1/candles/minutes/240?market=KRW-BTC&count=14") // miniue 오른쪽 숫자는 몇분봉 , 맨오른쪽 숫자는 출력개수
+                .url("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=14")
                 .get()
                 .addHeader("accept", "application/json")
                 .build();

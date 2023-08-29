@@ -27,12 +27,7 @@ public class StartController {
     }
 
     @RequestMapping("/test")
-    public String getRsiByDay(Model model) throws IOException, JSONException {
-
-
-        double rsi = getRsiByDay.GetRsiBy();
-        log.info("Day rsi -> " + rsi);
-        model.addAttribute("rsi",rsi);
-        return "rsi";
+    public String AccountInfo(Model model) throws IOException {
+        return "test";
     }
 }

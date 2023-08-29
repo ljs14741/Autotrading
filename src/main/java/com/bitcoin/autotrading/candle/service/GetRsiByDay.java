@@ -1,9 +1,12 @@
 package com.bitcoin.autotrading.candle.service;
 
+import com.bitcoin.autotrading.candle.domain.Rsi;
+import com.bitcoin.autotrading.candle.domain.repository.RsiRepository;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Component;
@@ -16,6 +19,8 @@ import java.util.*;
 @Component
 public class GetRsiByDay {
 
+    @Autowired
+    public RsiRepository rsiRepository;
     public double GetRsiBy() throws IOException, JSONException {
 
         log.info("getRsiByDay 타냐?");
@@ -111,6 +116,12 @@ public class GetRsiByDay {
         double ad = downEma;
         double rs = au / ad;
         double rsi = 100 - (100 / (1 + rs));
+
+        rsiRepository.save(Rsi.builder()
+                    .time_cd("1")
+                    .rsi(rsi)
+                        .build()
+                );
 
 
         log.info("Day rsi -> " + rsi);

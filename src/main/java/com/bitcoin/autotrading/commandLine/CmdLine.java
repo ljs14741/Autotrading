@@ -2,7 +2,7 @@ package com.bitcoin.autotrading.commandLine;
 
 import com.bitcoin.autotrading.commandLine.domain.ProgramLog;
 import com.bitcoin.autotrading.commandLine.domain.repository.ProgramLogRepository;
-import com.bitcoin.autotrading.account.service.Api;
+import com.bitcoin.autotrading.account.service.AccountInfoService;
 import com.bitcoin.autotrading.candle.service.CandleSearch;
 import com.bitcoin.autotrading.order.service.GetOrdersChance;
 import com.bitcoin.autotrading.candle.service.GetRsiByMinutes;
@@ -24,7 +24,7 @@ public class CmdLine implements ApplicationRunner {
     private final ProgramLogRepository programLogRepository;
 
     @Autowired
-    private Api api;
+    private AccountInfoService api;
 
 
     @Autowired
@@ -55,7 +55,7 @@ public class CmdLine implements ApplicationRunner {
             );
 
             log.info("startController.index()");
-            api.main();
+            //api.main();
             candleSearch.main();
             getOrdersChance.main();
             getRsiByMinutes.main();

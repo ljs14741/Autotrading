@@ -20,7 +20,7 @@ public class RequestOrderController {
     @Autowired
     private RequestOrderService requestOrderService;
 
-    @RequestMapping("/testRequestOrder")
+    @RequestMapping("/testRequestOrder.do")
     public String AccountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, NoSuchAlgorithmException {
 
 

@@ -6,15 +6,22 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/style.css">
   </head>
   <body>
   <h2>Main Test </h2>
-  <h7>test.jsp를 main 테스트화면으로 하고 </h7>
-  <h7>여기서 필요한 테스트 화면들을 만들자 </h7>
-  <button type="button" onclick="location.href='testAccountInfo'">나의 계좌 정보</button>
-  <a href="testAccountInfo">나의 계좌 정보</a>
+  <div>
+    <button class="btn-gradient cyan small" type="button" onclick="location.href='testAccountInfo'">나의 계좌 정보</button>
+  </div>
+  <form action="testRequestOrder.do" method="get">
+    <button class="btn-gradient cyan small" type="submit">매수하기</button>
+  </form>
+  <div>
+   <button class="btn-gradient cyan small" type="button">매도하기</button>
+  </div>
   </body>
 </html>

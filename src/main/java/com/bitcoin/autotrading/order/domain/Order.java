@@ -6,14 +6,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @Entity
-@Table(name = "order")
+@Table(name = "coinorder")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "uuid", nullable = false)
     private	String uuid;
+
     private	String side;
     private	String ord_type;
     private	String price;

@@ -28,7 +28,7 @@ public class GetRsiByMinutes {
 
             Request request = new Request.Builder()
                     //.url("https://api.upbit.com/v1/candles/minutes/240?market=KRW-BTC&count=14") // miniue 오른쪽 숫자는 몇분봉 , 맨오른쪽 숫자는 출력개수
-                    .url("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=14")
+                    .url("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=200")
                     .get()
                     .addHeader("accept", "application/json")
                     .build();

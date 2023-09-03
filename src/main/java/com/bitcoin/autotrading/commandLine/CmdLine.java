@@ -6,7 +6,6 @@ import com.bitcoin.autotrading.account.service.AccountInfoService;
 import com.bitcoin.autotrading.candle.service.CandleSearch;
 import com.bitcoin.autotrading.order.service.GetOrdersChance;
 import com.bitcoin.autotrading.candle.service.GetRsiByMinutes;
-import com.bitcoin.autotrading.user.service.FromToTrading;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -62,12 +61,6 @@ public class CmdLine implements ApplicationRunner {
 //            getOrdersChance.main();
 //            getRsiByMinutes.main();
 
-            FromToTrading.builder()
-                    .srt_dttm("202201011200")
-                    .end_dttm("202201011500")
-                    .getRsiByMinutes(this.getRsiByMinutes)
-                    .build()
-                    .BackTesting();
 
         }
 

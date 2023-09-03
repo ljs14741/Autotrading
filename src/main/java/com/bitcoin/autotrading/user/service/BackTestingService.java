@@ -1,20 +1,24 @@
 package com.bitcoin.autotrading.user.service;
 
 import com.bitcoin.autotrading.candle.service.GetRsiByMinutes;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @Slf4j
-public class FromToTrading {
+@Component
+public class BackTestingService {
 
+    @Autowired
     private GetRsiByMinutes getRsiByMinutes;
 
     public String srt_dttm;
@@ -22,33 +26,19 @@ public class FromToTrading {
     public int state;
 
 
-    @Builder
-    public FromToTrading(String srt_dttm, String end_dttm, int state, GetRsiByMinutes getRsiByMinutes){
-
-        /*
-            마지막 캔들 시각 (exclusive).
-            ISO8061 포맷 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss). 기본적으로 UTC 기준 시간이며 2023-01-01T00:00:00+09:00 과 같이 KST 시간으로 요청 가능.
-            비워서 요청시 가장 최근 캔들
-        */
-        this.srt_dttm = srt_dttm;
-        this.end_dttm = end_dttm;
-        this.state = state;
-        this.getRsiByMinutes = getRsiByMinutes;
-    }
-
-
     /**
      * 백테스팅용
      */
     public void BackTesting(){
-
         try {
-
+            this.end_dttm = "202309030900";
+            this.srt_dttm = "202309031200";
             Date to_date_end = new SimpleDateFormat("yyyyMMddHHmm").parse(this.end_dttm);
             Date to_date_srt = new SimpleDateFormat("yyyyMMddHHmm").parse(this.srt_dttm);
 
+
             long diffSec = (to_date_end.getTime() - to_date_srt.getTime()) / 1000; // 초 차이
-            long time = diffSec / (60 * 30); //예시 - 30분봉기준
+            long time = (long)(diffSec / (60 * 30)); //예시 - 30분봉기준
 
             log.info("diffSec =["+diffSec+"]");
             log.info("time =["+time+"]");
@@ -63,8 +53,6 @@ public class FromToTrading {
     }
 
     public void Process(){
-
-
 
         //1. RSI 계산(지표 계산) -- 실제 계산
         getRsiByMinutes.main(); // RSI 계산

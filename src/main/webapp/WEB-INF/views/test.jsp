@@ -24,9 +24,7 @@
    <button class="btn-gradient cyan small" type="button">매도하기</button>
   </div>
   <div>
-    <form action="testFromToTrading" method="get">
-    <button class="btn-gradient cyan small" type="button">백테스팅</button>
-    </form>
+      <button class="btn-gradient cyan small" type="button" onclick="location.href='testFromToTrading'">백테스팅</button>
   </div>
   </body>
 </html>

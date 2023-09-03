@@ -65,6 +65,7 @@ public class CmdLine implements ApplicationRunner {
             FromToTrading.builder()
                     .srt_dttm("202201011200")
                     .end_dttm("202201011500")
+                    .getRsiByMinutes(this.getRsiByMinutes)
                     .build()
                     .BackTesting();
 

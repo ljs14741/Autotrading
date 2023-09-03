@@ -15,8 +15,7 @@ import java.util.Date;
 @Slf4j
 public class FromToTrading {
 
-    @Autowired
-    public GetRsiByMinutes getRsiByMinutes;
+    private GetRsiByMinutes getRsiByMinutes;
 
     public String srt_dttm;
     public String end_dttm;
@@ -24,7 +23,7 @@ public class FromToTrading {
 
 
     @Builder
-    public FromToTrading(String srt_dttm, String end_dttm, int state){
+    public FromToTrading(String srt_dttm, String end_dttm, int state, GetRsiByMinutes getRsiByMinutes){
 
         /*
             마지막 캔들 시각 (exclusive).
@@ -34,6 +33,7 @@ public class FromToTrading {
         this.srt_dttm = srt_dttm;
         this.end_dttm = end_dttm;
         this.state = state;
+        this.getRsiByMinutes = getRsiByMinutes;
     }
 
 

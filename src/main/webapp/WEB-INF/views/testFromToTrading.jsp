@@ -54,13 +54,14 @@
   <table border = "1" class="editorDemoTable" style="height: 167px; width: 486px; ">
     <thead>
       <tr>
-        <td>순번</td>
-        <td>화폐를 의미하는 영문 대문자 코드</td>
-        <td>주문가능 금액/수량</td>
-        <td>주문 중 묶여있는 금액/수량</td>
-        <td>매수평균가</td>
-        <td>매수평균가 수정 여부</td>
-        <td>평단가 기준 화폐</td>
+        <td>주문ID</td>
+        <td>마켓ID</td>
+        <td>거래시간</td>
+        <td>매수/매도</td>
+        <td>거래 가격</td>
+        <td>거래량</td>
+        <td>수익률(매도시)</td>
+        <td>누적수익률(매도시)</td>
       </tr>
     </thead>
     <tbody>
@@ -80,5 +81,7 @@
       } %>
     </tbody>
   </table>
+
+
   </body>
 </html>

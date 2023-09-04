@@ -17,50 +17,21 @@
 %>
 <html>
   <head>
-    <title>$Title$</title>
-    <style type="text/css">
-      div#container {
-        width: 95%;
-        margin: 0 auto;
-      }
-
-      table {
-        width: 90%;
-        border: solid 1px gray;
-        border-collapse: collapse;
-        margin-top: 30px;
-        text-align: center;
-      }
-
-      th, td {
-        border: solid 1px gray;
-        border-collapse: collapse;
-      }
-
-      tbody tr:hover {
-        background-color: #ccc;
-        cursor: pointer;
-      }
-
-      button {
-        margin-top: 30px;
-        margin-right: 180px;
-        float: right;
-      }
-    </style>
+    <title>계좌정보</title>
+    <link rel="stylesheet" type="text/css" href="${path}/resources/css/style.css">
   </head>
   <body>
-  <h2>여기는 테스트2화면</h2>
-  <table border = "1" class="editorDemoTable" style="height: 167px; width: 486px; ">
+  <h2>나의계좌정보</h2>
+  <table>
     <thead>
       <tr>
-        <td>순번</td>
-        <td>화폐를 의미하는 영문 대문자 코드</td>
-        <td>주문가능 금액/수량</td>
-        <td>주문 중 묶여있는 금액/수량</td>
-        <td>매수평균가</td>
-        <td>매수평균가 수정 여부</td>
-        <td>평단가 기준 화폐</td>
+        <th>순번</th>
+        <th>화폐를 의미하는 영문 대문자 코드</th>
+        <th>주문가능 금액/수량</th>
+        <th>주문 중 묶여있는 금액/수량</th>
+        <th>매수평균가</th>
+        <th>매수평균가 수정 여부</th>
+        <th>평단가 기준 화폐</th>
       </tr>
     </thead>
     <tbody>

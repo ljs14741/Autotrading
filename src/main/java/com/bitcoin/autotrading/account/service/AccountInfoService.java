@@ -1,30 +1,18 @@
 package com.bitcoin.autotrading.account.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.bitcoin.autotrading.candle.service.GetRsiByMinutes;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bitcoin.autotrading.common.JsonTransfer;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Response;
-import okhttp3.internal.http.HttpHeaders;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.*;
@@ -60,42 +48,12 @@ public class AccountInfoService {
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
             body = EntityUtils.toString(entity, "UTF-8");
-            log.info("AccountInfoService 내 계좌조회 body : " + body);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         JSONArray jsonArray = new JSONArray(body);
-        List<Map<String, Object>> list = AccountInfoService.getListMapFromJsonArray(jsonArray);
-
-        return list;
-    }
-
-    public static Map<String, Object> getMapFromJSONObject(JSONObject obj) {
-        if (ObjectUtils.isEmpty(obj)) {
-            log.error("BAD REQUEST obj : {}", obj);
-            throw new IllegalArgumentException(String.format("BAD REQUEST obj %s", obj));
-        }
-
-        try {
-            return new ObjectMapper().readValue(obj.toString(), Map.class);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) throws JSONException {
-
-        if (ObjectUtils.isEmpty(jsonArray)) {
-            log.error("jsonArray is null.");
-            throw new IllegalArgumentException("jsonArray is null");
-        }
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (int i=0; i<jsonArray.length(); i++) {
-            Map<String, Object> map = getMapFromJSONObject((JSONObject)jsonArray.get(i));
-            list.add(map);
-        }
+        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
         return list;
     }
 }

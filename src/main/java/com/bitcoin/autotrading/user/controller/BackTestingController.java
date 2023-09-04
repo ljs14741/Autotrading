@@ -1,6 +1,5 @@
 package com.bitcoin.autotrading.user.controller;
 
-import com.bitcoin.autotrading.candle.service.GetRsiByDay;
 import com.bitcoin.autotrading.user.service.BackTestingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class BackTestingController {
     BackTestingService backTestingService;
 
     @RequestMapping("/testFromToTrading")
-    public String fromtoTrading(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, JSONException, ParseException {
+    public String fromToTrading(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, JSONException, ParseException {
         List<Map<String, Object>> list = backTestingService.backTesting();
         request.setAttribute("list", list);
         return "testFromToTrading";

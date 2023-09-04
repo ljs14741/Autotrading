@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class RequestOrderController {
@@ -21,9 +19,7 @@ public class RequestOrderController {
     private RequestOrderService requestOrderService;
 
     @RequestMapping("/testRequestOrder.do")
-    public String AccountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, NoSuchAlgorithmException {
-
-
+    public String accountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, NoSuchAlgorithmException {
         requestOrderService.main();
         return "testRequestOrder";
     }

@@ -1,19 +1,15 @@
 package com.bitcoin.autotrading.candle.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bitcoin.autotrading.common.JsonTransfer;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Component;
 
 import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
-import java.io.IOException;
 import java.util.*;
 
 @Slf4j
@@ -38,13 +34,7 @@ public class GetRsiByMinutes {
 
             //     JSONArray 데이터의 'market'이라는 키의 밸류만 뽑아낸것
             JSONArray jsonArray = new JSONArray(data);
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//            String trade_price = jsonObject.getString("trade_price");
-//            log.info("trade_price -> " + trade_price);
-//        }
-            //GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
-            List<Map<String, Object>> list = GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
+            List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
             log.info("list -> " +  list);
 
 //        ------------- rsi 계산 //   https://herojoon-dev.tistory.com/156
@@ -105,37 +95,6 @@ public class GetRsiByMinutes {
 
         }
 
-    }
-
-    
-    // 아래 두개 함수는 json -> list로 변경하려고 해본건데 되긴되는거 같은데 잘모르겠네
-    public static Map<String, Object> getMapFromJSONObject(JSONObject obj) {
-        if (ObjectUtils.isEmpty(obj)) {
-            log.error("BAD REQUEST obj : {}", obj);
-            throw new IllegalArgumentException(String.format("BAD REQUEST obj %s", obj));
-        }
-
-        try {
-            return new ObjectMapper().readValue(obj.toString(), Map.class);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) throws JSONException {
-
-        if (ObjectUtils.isEmpty(jsonArray)) {
-            log.error("jsonArray is null.");
-            throw new IllegalArgumentException("jsonArray is null");
-        }
-        List<Map<String, Object>> list = new ArrayList<>();
-        for (int i=0; i<jsonArray.length(); i++) {
-            Map<String, Object> map = getMapFromJSONObject((JSONObject)jsonArray.get(i));
-            list.add(map);
-           // list.add(getMapFromJSONObject((JSONObject) jsonObject));
-        }
-        return list;
     }
 }
 

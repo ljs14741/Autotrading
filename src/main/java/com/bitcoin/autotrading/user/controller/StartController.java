@@ -28,7 +28,7 @@ public class StartController {
     }
 
     @RequestMapping("/test")
-    public String AccountInfo(Model model) throws IOException {
+    public String accountInfo(Model model) throws IOException {
         return "test";
     }
 }

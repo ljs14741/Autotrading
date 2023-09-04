@@ -2,6 +2,7 @@ package com.bitcoin.autotrading.candle.service;
 
 import com.bitcoin.autotrading.candle.domain.Rsi;
 import com.bitcoin.autotrading.candle.domain.repository.RsiRepository;
+import com.bitcoin.autotrading.common.JsonTransfer;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,7 +15,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -40,9 +40,8 @@ public class GetRsiByDay {
         //     JSONArray 데이터의 'market'이라는 키의 밸류만 뽑아낸것
         JSONArray jsonArray = new JSONArray(data);
 
-        List<Map<String, Object>> list = GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
+        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
         Collections.reverse(list);
-        log.info("daylist -> " +  list);
 
 //        ------------- rsi 계산 //   https://herojoon-dev.tistory.com/156
         double zero = 0;

@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.candle.service;
 
+import com.bitcoin.autotrading.common.JsonTransfer;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -31,8 +32,7 @@ public class DayCandleSearch {
         Response response = client.newCall(request).execute();
         String data = response.body().string();
         JSONArray jsonArray = new JSONArray(data);
-        List<Map<String, Object>> list = GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
-        log.info("CandleSearch list : " + list);
+        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
         return list;
 
     }

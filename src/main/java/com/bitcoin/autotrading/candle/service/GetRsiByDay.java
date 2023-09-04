@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -21,14 +23,13 @@ public class GetRsiByDay {
 
     @Autowired
     public RsiRepository rsiRepository;
-    public double GetRsiBy() throws IOException, JSONException {
+    public double GetRsiBy(String srt_dttm) throws IOException, JSONException, ParseException {
 
-        log.info("getRsiByDay 타냐?");
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 //.url("https://api.upbit.com/v1/candles/minutes/240?market=KRW-BTC&count=14") // miniue 오른쪽 숫자는 몇분봉 , 맨오른쪽 숫자는 출력개수
-                 .url("https://api.upbit.com/v1/candles/days?market=KRW-BTC&count=200")
+                 .url("https://api.upbit.com/v1/candles/days?market=KRW-BTC&to=" + srt_dttm + "&count=200") // count를 200개 가져와야 rsi값의 업비트와 정확도가 맞음
                 .get()
                 .addHeader("accept", "application/json")
                 .build();
@@ -38,12 +39,7 @@ public class GetRsiByDay {
 
         //     JSONArray 데이터의 'market'이라는 키의 밸류만 뽑아낸것
         JSONArray jsonArray = new JSONArray(data);
-//        for (int i = 0; i < jsonArray.length(); i++) {
-//            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//            String trade_price = jsonObject.getString("trade_price");
-//            log.info("trade_price -> " + trade_price);
-//        }
-        //GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
+
         List<Map<String, Object>> list = GetRsiByMinutes.getListMapFromJsonArray(jsonArray);
         Collections.reverse(list);
         log.info("daylist -> " +  list);
@@ -123,16 +119,7 @@ public class GetRsiByDay {
                         .build()
                 );
 
-
         log.info("Day rsi -> " + rsi);
-//        model.addAttribute("au",au);
-//        model.addAttribute("ad",ad);
-//        model.addAttribute("rsi",rsi);
-//        model.addAttribute("upList",upList);
-//        model.addAttribute("downList",downList);
-//        model.addAttribute("dou2_dou1List",dou2_dou1List);
-//        model.addAttribute("upupList",upupList);
-//        model.addAttribute("downdownList",downdownList);
         return rsi;
     }
 }

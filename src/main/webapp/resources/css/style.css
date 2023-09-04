@@ -1,6 +1,35 @@
 * {
     box-sizing: border-box;
 }
+
+table {
+    border-collapse: collapse;
+    margin: 1rem auto;
+    background-color: white;
+    border: 1px solid #bcbcbc;
+}
+
+/* 테이블 행 */
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    border: 1px solid #bcbcbc;
+}
+
+th {
+    background-color: #1b1b1b;
+    color: #ddd;
+}
+
+/* 테이블 올렸을 때 */
+tbody tr:hover {
+    background-color: #d3d3d3;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
 body {
     margin: 0;
     background: #eaedf1;

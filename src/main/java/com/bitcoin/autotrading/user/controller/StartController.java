@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @Controller
 @Slf4j
@@ -19,10 +20,10 @@ public class StartController {
 
 
     @RequestMapping("/")
-    public String index(Model model) throws IOException, JSONException{
-        log.info("index탔어");
-        double rsi = getRsiByDay.GetRsiBy();
-        model.addAttribute("rsi",rsi);
+    public String index(Model model) throws IOException, JSONException, ParseException {
+//        log.info("index탔어");
+//        double rsi = getRsiByDay.GetRsiBy();
+//        model.addAttribute("rsi",rsi);
         return "index";
     }
 

@@ -58,7 +58,8 @@ public class AccountInfoService {
             request.addHeader("Authorization", authenticationToken);
 
             HttpResponse response = client.execute(request);
-            HttpEntity entity = response.getEntity();body = EntityUtils.toString(entity, "UTF-8");
+            HttpEntity entity = response.getEntity();
+            body = EntityUtils.toString(entity, "UTF-8");
             log.info("AccountInfoService 내 계좌조회 body : " + body);
         } catch (IOException e) {
             e.printStackTrace();

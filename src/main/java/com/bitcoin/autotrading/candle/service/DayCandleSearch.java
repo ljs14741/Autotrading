@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.candle.service;
 
+import com.bitcoin.autotrading.candle.domain.Candle;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 
@@ -20,7 +22,7 @@ import java.util.Map;
 //시세캔틀조회 (분)
 public class DayCandleSearch {
 
-    public List<Map<String, Object>> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
+    public List<Candle> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -32,7 +34,9 @@ public class DayCandleSearch {
         Response response = client.newCall(request).execute();
         String data = response.body().string();
         JSONArray jsonArray = new JSONArray(data);
-        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
+//        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
+        List<Candle> list = JsonTransfer.getListObjectFromJSONObject(jsonArray);
+
         return list;
 
     }

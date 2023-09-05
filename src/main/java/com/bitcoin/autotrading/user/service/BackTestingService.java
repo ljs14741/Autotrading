@@ -1,9 +1,11 @@
 package com.bitcoin.autotrading.user.service;
 
 import com.bitcoin.autotrading.account.domain.Account;
+import com.bitcoin.autotrading.candle.domain.Candle;
 import com.bitcoin.autotrading.candle.service.DayCandleSearch;
 import com.bitcoin.autotrading.candle.service.GetRsiByDay;
 import com.bitcoin.autotrading.order.domain.Order;
+import com.bitcoin.autotrading.user.domain.ResponseBackTestingDTO;
 import com.mchange.v2.lang.ObjectUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +40,7 @@ public class BackTestingService {
     /**
      * 백테스팅용
      */
-    public List<Map<String, Object>> backTesting() throws IOException, InterruptedException, JSONException, ParseException {
+    public ResponseBackTestingDTO backTesting() throws IOException, InterruptedException, JSONException, ParseException {
         this.srt_dttm = "2023-02-01 09:00:00";
 
         // 매수는 1회 매수금액으로
@@ -50,8 +52,7 @@ public class BackTestingService {
         int rsibuycond = 30;   // 매수조건 rsi < 30
 
         // 데이터 조회용
-        List<Map<String, Object>> list = dayCandleSearch.dayCandleSearch(srt_dttm);
-
+        List<Candle> list = dayCandleSearch.dayCandleSearch(srt_dttm);
 
         List<Order> orderList = new ArrayList<>();
         Account account = null;
@@ -60,9 +61,10 @@ public class BackTestingService {
             double rsi = getRsiByDay.GetRsiBy(this.srt_dttm);
 
             //log.info("rsi 1개의 값: " + rsi);
-            list.get(i).put("rsi", rsi);
+            //list.get(i).put("rsi", rsi);
+            list.get(i).setRsi(rsi);
 
-            int trade_price = Integer.parseInt(list.get(i).get("trade_price").toString()); //현재가
+            int trade_price = Integer.parseInt(list.get(i).getTrade_price().toString()); //현재가
 
             // 매수
             if (rsi > rsisellcond) {
@@ -119,10 +121,10 @@ public class BackTestingService {
                 //잔고가있으면 전량매도
                 if (account != null) {
                     // 수익률 = 매도평균가 / 매수평균가
-                    double portfolio = Double.valueOf(list.get(i).get("trade_price").toString()) / account.getAvg_buy_price() *100 -100;
+                    double portfolio = Double.valueOf(list.get(i).getTrade_price().toString()) / account.getAvg_buy_price() *100 -100;
 
                     // 예수금
-                    deposit = (int)(Double.valueOf(account.getBalance()) * Integer.parseInt(list.get(i).get("trade_price").toString()));
+                    deposit = (int)(Double.valueOf(account.getBalance()) * Integer.parseInt(list.get(i).getTrade_price().toString()));
 
                     orderList.add(Order.builder()
                             .uuid(uuid)
@@ -158,9 +160,11 @@ public class BackTestingService {
         }
         log.info("account="+account.toString());
 
-
-
-        return list;
+        return ResponseBackTestingDTO.builder()
+                .candleList(list)
+                .orderList(orderList)
+                .account(account)
+                .build();
 
     }
 //        try {

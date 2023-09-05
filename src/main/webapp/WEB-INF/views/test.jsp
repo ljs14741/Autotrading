@@ -17,6 +17,9 @@
   <div>
     <button class="btn-gradient cyan small" type="button" onclick="location.href='testAccountInfo'">나의 계좌 정보</button>
   </div>
+  <div>
+    <button class="btn-gradient cyan small" type="button" onclick="location.href='testCoinInfo'">코인정보</button>
+  </div>
   <form action="testRequestOrder.do" method="get">
     <button class="btn-gradient cyan small" type="submit">매수하기</button>
   </form>

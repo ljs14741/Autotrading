@@ -2,6 +2,7 @@ package com.bitcoin.autotrading.candle.service;
 
 import com.bitcoin.autotrading.candle.domain.Candle;
 import com.bitcoin.autotrading.common.JsonTransfer;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
@@ -35,8 +36,9 @@ public class DayCandleSearch {
         String data = response.body().string();
         JSONArray jsonArray = new JSONArray(data);
 //        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
-        List<Candle> list = JsonTransfer.getListObjectFromJSONObject(jsonArray);
-
+        List<Candle> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<Candle>() {
+        });
+        log.info(list.get(0).getOpening_price().toString());
         return list;
 
     }

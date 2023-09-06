@@ -8,13 +8,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.bitcoin.autotrading.candle.domain.Candle" %>
+<%@ page import="com.bitcoin.autotrading.order.domain.Order" %>
+<%@ page import="com.bitcoin.autotrading.account.domain.Account" %>
+<%@ page import="com.bitcoin.autotrading.user.domain.ResponseBackTestingDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-  Object obj = request.getAttribute("list");
+  //Object obj = request.getAttribute("list");
 
+  /*
   List<HashMap<String, Object>> list = null;
   if(obj != null)
     list = (List<HashMap<String, Object>>)obj;
+  */
+  ResponseBackTestingDTO res = (ResponseBackTestingDTO) request.getAttribute("list");
+
+
+  List<Candle> candleList = res.getCandleList();
+  List<Order> orderList = res.getOrderList();
+  Account account = res.getAccount();
+
+
+
 %>
 <html>
   <head>
@@ -37,16 +52,22 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-          <td>값</td>
-        </tr>
+      <%
+        if(orderList != null) {
+          for(int j=0; j<orderList.size(); j++) { %>
+      <tr>
+        <td><%= j+1%></td>
+        <td><%= orderList.get(j).getUuid()%></td>
+        <td><%= orderList.get(j).getMarket() %></td>
+        <td><%= orderList.get(j).getTrades_created_at() %></td>
+        <td><%= orderList.get(j).getSide() %></td>
+        <td><%= orderList.get(j).getPrice() %></td>
+        <td><%= orderList.get(j).getVolume() %></td>
+        <td><%= orderList.get(j).getPortfolio() %></td>
+        <td><%= 1 %></td>
+      </tr>
+      <% }
+      } %>
       </tbody>
       <thead>
       <tr>
@@ -61,32 +82,32 @@
         <th>마지막 틱이 저장된 시각</th>
         <th>누적 거래 금액</th>
         <th>누적 거래량</th>
+        <!--
         <th>전일 종가(UTC 0시 기준)</th>
         <th>전일 종가 대비 변화 금액</th>
         <th>전일 종가 대비 변화량</th>
+        -->
         <th>rsi</th>
       </tr>
+
       </thead>
       <tbody>
       <%
-        if(list != null) {
-          for(int i=0; i<list.size(); i++) { %>
+        if(candleList != null) {
+          for(int i=0; i<candleList.size(); i++) { %>
       <tr>
         <td><%= i+1%></td>
-        <td><%= list.get(i).get("market") %></td>
-        <td><%= list.get(i).get("candle_date_time_utc") %></td>
-        <td><%= list.get(i).get("candle_date_time_kst") %></td>
-        <td><%= list.get(i).get("opening_price") %></td>
-        <td><%= list.get(i).get("high_price") %></td>
-        <td><%= list.get(i).get("low_price") %></td>
-        <td><%= list.get(i).get("trade_price") %></td>
-        <td><%= list.get(i).get("timestamp") %></td>
-        <td><%= list.get(i).get("candle_acc_trade_price") %></td>
-        <td><%= list.get(i).get("candle_acc_trade_volume") %></td>
-        <td><%= list.get(i).get("prev_closing_price") %></td>
-        <td><%= list.get(i).get("change_price") %></td>
-        <td><%= list.get(i).get("change_rate") %></td>
-        <td><%= list.get(i).get("rsi") %></td>
+        <td><%= candleList.get(i).getMarket() %></td>
+        <td><%= candleList.get(i).getCandle_date_time_utc() %></td>
+        <td><%= candleList.get(i).getCandle_date_time_kst() %></td>
+        <td><%= candleList.get(i).getOpening_price() %></td>
+        <td><%= candleList.get(i).getHigh_price() %></td>
+        <td><%= candleList.get(i).getLow_price() %></td>
+        <td><%= candleList.get(i).getTrade_price() %></td>
+        <td><%= candleList.get(i).getTimestamp() %></td>
+        <td><%= candleList.get(i).getCandle_acc_trade_price() %></td>
+        <td><%= candleList.get(i).getCandle_acc_trade_volume() %></td>
+        <td><%= candleList.get(i).getRsi() %></td>
       </tr>
       <% }
       } %>

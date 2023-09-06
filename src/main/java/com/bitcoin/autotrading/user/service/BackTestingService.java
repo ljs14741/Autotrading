@@ -60,8 +60,6 @@ public class BackTestingService {
         for (int i = 0; i < 60; i++) {
             double rsi = getRsiByDay.GetRsiBy(this.srt_dttm);
 
-            //log.info("rsi 1개의 값: " + rsi);
-            //list.get(i).put("rsi", rsi);
             list.get(i).setRsi(rsi);
 
             int trade_price = Integer.parseInt(list.get(i).getTrade_price().toString()); //현재가

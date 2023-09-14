@@ -7,13 +7,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    Object obj = request.getAttribute("list");
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%--%>
+<%--    Object obj = request.getAttribute("list");--%>
 
-    List<HashMap<String, Object>> list = null;
-    if(obj != null)
-        list = (List<HashMap<String, Object>>)obj;
-%>
+<%--    List<HashMap<String, Object>> list = null;--%>
+<%--    if(obj != null)--%>
+<%--        list = (List<HashMap<String, Object>>)obj;--%>
+<%--%>--%>
 <html>
 <head>
     <title>코인정보</title>
@@ -24,6 +25,7 @@
 <table>
     <thead>
     <tr>
+        <th>순번</th>
         <th>종목 구분 코드</th>
         <th>시가</th>
         <th>고가</th>
@@ -33,21 +35,34 @@
         <th>change</th>
     </tr>
     </thead>
+<%--    <tbody>--%>
+<%--    <%--%>
+<%--        if(list != null) {--%>
+<%--            for(int i=0; i<list.size(); i++) { %>--%>
+<%--    <tr>--%>
+<%--        <td><%= i+1%></td>--%>
+<%--        <td><%= list.get(i).get("market") %></td>--%>
+<%--        <td><%= list.get(i).get("opening_price") %></td>--%>
+<%--        <td><%= list.get(i).get("high_price") %></td>--%>
+<%--        <td><%= list.get(i).get("low_price") %></td>--%>
+<%--        <td><%= list.get(i).get("trade_price") %></td>--%>
+<%--        <td><%= list.get(i).get("change") %></td>--%>
+<%--    </tr>--%>
+<%--    <% }--%>
+<%--    } %>--%>
+<%--    </tbody>--%>
     <tbody>
-    <%
-        if(list != null) {
-            for(int i=0; i<list.size(); i++) { %>
-    <tr>
-        <td><%= i+1%></td>
-        <td><%= list.get(i).get("market") %></td>
-        <td><%= list.get(i).get("opening_price") %></td>
-        <td><%= list.get(i).get("high_price") %></td>
-        <td><%= list.get(i).get("low_price") %></td>
-        <td><%= list.get(i).get("trade_price") %></td>
-        <td><%= list.get(i).get("change") %></td>
-    </tr>
-    <% }
-    } %>
+        <c:forEach var="list" items="${list}">
+            <tr>
+                <td>${list.id}</td>
+                <td>${list.market}</td>
+                <td>${list.opening_price}</td>
+                <td>${list.high_price}</td>
+                <td>${list.low_price}</td>
+                <td>${list.trade_price}</td>
+                <td>${list.change}</td>
+            </tr>
+        </c:forEach>
     </tbody>
 </table>
 </body>

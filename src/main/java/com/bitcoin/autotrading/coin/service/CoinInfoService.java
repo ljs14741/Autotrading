@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ import java.util.List;
 @Service
 @Slf4j
 public class CoinInfoService {
+    @Autowired
+    CoinKindService coinKindService;
     private final CoinPriceRepository coinKindRepository;
-
+    private String coinKind;
     public CoinInfoService(CoinPriceRepository coinKindRepository) {
         this.coinKindRepository = coinKindRepository;
     }
@@ -29,10 +32,12 @@ public class CoinInfoService {
     
     // 여기서 트랜잭션 잡으면 실패가 나오면 롤백
     public List<CoinPriceDTO> coinInfo() throws IOException, JSONException {
+
+        this. coinKind = coinKindService.coinKind();
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.upbit.com/v1/ticker?markets=KRW-BTC,KRW-ETH,KRW-XRP")
+                .url("https://api.upbit.com/v1/ticker?markets" + coinKind)
 //                .url("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
                 .get()
                 .addHeader("accept", "application/json")
@@ -76,13 +81,14 @@ public class CoinInfoService {
                 .lowest_52_week_price(coinPriceDTO.getLowest_52_week_price())
                 .lowest_52_week_date(coinPriceDTO.getLowest_52_week_date())
                 .timestamp(coinPriceDTO.getTimestamp())
+                .change(coinPriceDTO.getChange())
                 .build();
         coinKindRepository.save(coinPrice);
     }
 
-//    public List<CoinPriceDTO> coinPriceSelect(CoinPriceDTO coinPriceDTO) {
-//        return (List<CoinPriceDTO>) coinKindRepository.findAll();
-//    }
+    public List<CoinPrice> coinPriceSelect() {
+        return coinKindRepository.findAll();
+    }
 
 //    public List<CoinKindEntity> searchAll() {
 //        return coinKindRepository.findAll();

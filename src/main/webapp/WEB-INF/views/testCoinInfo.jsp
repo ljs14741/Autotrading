@@ -31,7 +31,6 @@
         <th>고가</th>
         <th>저가</th>
         <th>종가(현재가)</th>
-        <th>전일 종가</th>
         <th>change</th>
     </tr>
     </thead>
@@ -52,15 +51,15 @@
 <%--    } %>--%>
 <%--    </tbody>--%>
     <tbody>
-        <c:forEach var="list" items="${list}">
+        <c:forEach var="list2" items="${list2}">
             <tr>
-                <td>${list.id}</td>
-                <td>${list.market}</td>
-                <td>${list.opening_price}</td>
-                <td>${list.high_price}</td>
-                <td>${list.low_price}</td>
-                <td>${list.trade_price}</td>
-                <td>${list.change}</td>
+                <td>${list2.id}</td>
+                <td>${list2.market}</td>
+                <td>${list2.opening_price}</td>
+                <td>${list2.high_price}</td>
+                <td>${list2.low_price}</td>
+                <td>${list2.trade_price}</td>
+                <td>${list2.change}</td>
             </tr>
         </c:forEach>
     </tbody>

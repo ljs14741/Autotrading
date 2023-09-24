@@ -2,6 +2,7 @@ package com.bitcoin.autotrading.coin.domain;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 
 @Getter
 @Setter
@@ -48,4 +49,5 @@ public class CoinPriceDTO {
         this.trade_price = trade_price;
         this.change = change;
     }
+
 }

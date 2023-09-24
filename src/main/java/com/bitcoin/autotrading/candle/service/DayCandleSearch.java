@@ -1,6 +1,7 @@
 package com.bitcoin.autotrading.candle.service;
 
 import com.bitcoin.autotrading.candle.domain.Candle;
+import com.bitcoin.autotrading.candle.domain.dto.CandleDto;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ import java.util.Map;
 //시세캔틀조회 (분)
 public class DayCandleSearch {
 
-    public List<Candle> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
+    public List<CandleDto> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -36,7 +37,7 @@ public class DayCandleSearch {
         String data = response.body().string();
         JSONArray jsonArray = new JSONArray(data);
 //        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
-        List<Candle> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<Candle>() {
+        List<CandleDto> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDto>() {
         });
         log.info(list.get(0).getOpening_price().toString());
         return list;

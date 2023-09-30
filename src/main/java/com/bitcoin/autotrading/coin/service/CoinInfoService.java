@@ -23,22 +23,20 @@ import java.util.List;
 public class CoinInfoService {
     @Autowired
     CoinKindService coinKindService;
-    private final CoinPriceRepository coinKindRepository;
+    private final CoinPriceRepository coinPriceRepository;
     private String coinKind;
-    public CoinInfoService(CoinPriceRepository coinKindRepository) {
-        this.coinKindRepository = coinKindRepository;
+    public CoinInfoService(CoinPriceRepository coinPriceRepository) {
+        this.coinPriceRepository = coinPriceRepository;
     }
 
     
     // 여기서 트랜잭션 잡으면 실패가 나오면 롤백
-    public List<CoinPriceDTO> coinInfo() throws IOException, JSONException {
-
+    public List<CoinPriceDTO> coinInfoSave() throws IOException, JSONException {
         this. coinKind = coinKindService.coinKind();
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url("https://api.upbit.com/v1/ticker?markets" + coinKind)
-//                .url("https://api.upbit.com/v1/ticker?markets=KRW-BTC")
                 .get()
                 .addHeader("accept", "application/json")
                 .build();
@@ -83,44 +81,14 @@ public class CoinInfoService {
                 .timestamp(coinPriceDTO.getTimestamp())
                 .change(coinPriceDTO.getChange())
                 .build();
-        coinKindRepository.save(coinPrice);
+        coinPriceRepository.save(coinPrice);
     }
 
-    public List<CoinPrice> coinPriceSelect() {
-        return coinKindRepository.findAll();
+    public List<CoinPrice> coinPriceAllSelect() {
+        return coinPriceRepository.findAll();
     }
 
-//    public List<CoinKindEntity> searchAll() {
-//        return coinKindRepository.findAll();
-//    }
-//
-//
-//    public void insertCoinKind(String market, String korean_name, String english_name, String market_warning) {
-//
-//        CoinKindEntity params = CoinKindEntity.builder()
-//                .market(market)
-//                .korean_name(korean_name)
-//                .english_name(english_name)
-//                .market_warning(market_warning)
-//                .build();
-//
-//        coinKindRepository.save(params);
-//    }
-
-//    public void coinKind() throws IOException, JSONException {
-//        OkHttpClient client = new OkHttpClient();
-//
-//        Request request = new Request.Builder()
-//                .url("https://api.upbit.com/v1/market/all?isDetails=false")
-//                .get()
-//                .addHeader("accept", "application/json")
-//                .build();
-//
-//        Response response = client.newCall(request).execute();
-//        String data = response.body().string();
-//        JSONArray jsonArray = new JSONArray(data);
-//        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
-//
-//    }
-
+    public List<CoinPrice> coinPriceSelect(String market) {
+        return coinPriceRepository.findAllByMarket(market);
+    }
 }

@@ -27,8 +27,8 @@ public class StartController {
 
     @RequestMapping("/")
     public String index(Model model) throws IOException, JSONException, ParseException {
-        coinInfoService.coinInfo();
-        List<CoinPrice> list = coinInfoService.coinPriceSelect();
+        coinInfoService.coinInfoSave();
+        List<CoinPrice> list = coinInfoService.coinPriceAllSelect();
         model.addAttribute("list",list);
         return "index";
     }

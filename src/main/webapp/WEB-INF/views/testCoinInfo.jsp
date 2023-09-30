@@ -51,15 +51,15 @@
 <%--    } %>--%>
 <%--    </tbody>--%>
     <tbody>
-        <c:forEach var="list2" items="${list2}">
+        <c:forEach var="list" items="${list}">
             <tr>
-                <td>${list2.id}</td>
-                <td>${list2.market}</td>
-                <td>${list2.opening_price}</td>
-                <td>${list2.high_price}</td>
-                <td>${list2.low_price}</td>
-                <td>${list2.trade_price}</td>
-                <td>${list2.change}</td>
+                <td>${list.id}</td>
+                <td>${list.market}</td>
+                <td>${list.opening_price}</td>
+                <td>${list.high_price}</td>
+                <td>${list.low_price}</td>
+                <td>${list.trade_price}</td>
+                <td>${list.change}</td>
             </tr>
         </c:forEach>
     </tbody>

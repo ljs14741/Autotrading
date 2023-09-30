@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+  System.out.print("JSPJSP123123");
+%>
 <html>
   <head>
     <title>Main</title>
@@ -19,6 +23,7 @@
     $(document).ready(function (){
       $("#tb1").css('display','none');
       $("#tb2").css('display','none');
+
     });
 
     function test(){
@@ -98,37 +103,74 @@
       console.log("error : "+e);
     }
 
+    function changeValue() {
+    // alert("value " + value_str.options[value_str.selectedIndex].value +
+    // "text " + value_str.options[value_str.selectedIndex].text)
+      var valueStr = document.getElementById('coin');
+      var requestParam = valueStr.options[valueStr.selectedIndex].text; //선택밸류값은 value_str.options[value_str.selectedIndex].value
+      $.ajax({
+        type:"POST",
+        url:"/coinInfoController.coinPriceSelect.do",
+        data:{"requestParam": requestParam},
+        contentType:"application/x-www-form-urlencoded; charset=utf-8",
+        error:onError,
+        success:onSuccess1
+      });
+
+      function onSuccess1(data) {
+        $("#tb3").dataTable({
+          lengthChange: false,
+          searching: false, // 검색 기능 숨기기
+          info: false, // 정보 표시 숨기기
+          paging: false, // 페이징 기능 숨기기
+          destroy: true, //테이블 초기화
+          data: data,
+          columns:[
+            {data:'market'},
+            {data:'opening_price'},
+            {data:'high_price'},
+            {data:'low_price'},
+            {data:'trade_price'}
+          ]
+        });
+      }
+      // var data = {};
+      // data.test1 = "test";
+      // var jsonStr = JSON.stringify(data) //입력 파라미터
+      // $.ajax({
+      //   type:"POST",
+      //   url:"/test/test123",
+      //   data:jsonStr,
+      //   contentType:"application/json",
+      //   error:onError,
+      //   success:onSuccess
+      // });
+    }
 
   </script>
   <body>
   <h2>종목선택</h2>
-  <table>
     <tr>
       <th>코인</th>
       <td>
-        <select id="coin" name="coin" size="1">
+        <select id="coin" name="coin" onchange="changeValue()" size="1">
           <c:forEach var="list" items="${list}">
             <option value = "1">${list.market}</option>
           </c:forEach>
         </select>
       </td>
     </tr>
-    <tr>
-      <th>시장가</th>
-      <td>값</td>
-    </tr>
-    <tr>
-      <th>평균가</th>
-      <td>값</td>
-    </tr>
-    <tr>
-      <th>고점가(일)</th>
-      <td>값</td>
-    </tr>
-    <tr>
-      <th>저점가(일)</th>
-      <td>값</td>
-    </tr>
+
+  <table id="tb3">
+    <thead>
+      <tr>
+        <th>코인</th>
+        <th>시가</th>
+        <th>고가</th>
+        <th>저가</th>
+        <th>종가</th>
+      </tr>
+    </thead>
   </table>
   <h2>매수 수량 설정</h2>
   <table>

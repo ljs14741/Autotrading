@@ -1,7 +1,6 @@
 package com.bitcoin.autotrading.candle.service;
 
-import com.bitcoin.autotrading.candle.domain.Candle;
-import com.bitcoin.autotrading.candle.domain.dto.CandleDto;
+import com.bitcoin.autotrading.candle.domain.dto.CandleDTO;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NoArgsConstructor;
@@ -10,13 +9,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @NoArgsConstructor
@@ -24,7 +21,7 @@ import java.util.Map;
 //시세캔틀조회 (분)
 public class DayCandleSearch {
 
-    public List<CandleDto> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
+    public List<CandleDTO> dayCandleSearch(String srt_dttm) throws InterruptedException, IOException, JSONException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -37,9 +34,9 @@ public class DayCandleSearch {
         String data = response.body().string();
         JSONArray jsonArray = new JSONArray(data);
 //        List<Map<String, Object>> list = JsonTransfer.getListMapFromJsonArray(jsonArray);
-        List<CandleDto> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDto>() {
+        List<CandleDTO> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDTO>() {
         });
-        log.info(list.get(0).getOpening_price().toString());
+        log.info(list.get(0).getOpeningPrice().toString());
         return list;
 
     }

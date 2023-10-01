@@ -1,10 +1,9 @@
 package com.bitcoin.autotrading.user.controller;
 
-import com.bitcoin.autotrading.account.domain.Account;
+import com.bitcoin.autotrading.account.domain.entity.Account;
 import com.bitcoin.autotrading.account.service.AccountInfoService;
 import com.bitcoin.autotrading.candle.service.GetRsiByDay;
 import com.bitcoin.autotrading.coin.domain.CoinPrice;
-import com.bitcoin.autotrading.coin.domain.CoinPriceDTO;
 import com.bitcoin.autotrading.coin.service.CoinInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;

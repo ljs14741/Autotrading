@@ -2,9 +2,8 @@ package com.bitcoin.autotrading.account.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.bitcoin.autotrading.account.Repository.AccountRepository;
-import com.bitcoin.autotrading.account.domain.Account;
-import com.bitcoin.autotrading.account.domain.dto.AccountDto;
-import com.bitcoin.autotrading.coin.domain.CoinPrice;
+import com.bitcoin.autotrading.account.domain.entity.Account;
+import com.bitcoin.autotrading.account.domain.dto.AccountDTO;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
@@ -96,7 +95,7 @@ public class AccountInfoService {
         }
 
         JSONArray jsonArray = new JSONArray(body);
-        List<AccountDto> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<AccountDto>() {});
+        List<AccountDTO> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<AccountDTO>() {});
 
         list.forEach(item -> {
             accountInsert(item);
@@ -104,16 +103,16 @@ public class AccountInfoService {
     }
 
     @Transactional
-    public void accountInsert(AccountDto accountDto) {
+    public void accountInsert(AccountDTO accountDto) {
         log.info("insertinsertinsert: " + accountDto);
 
         Account account = Account.builder()
                 .currency(accountDto.getCurrency())
                 .balance(accountDto.getBalance())
                 .locked(accountDto.getLocked())
-                .avg_buy_price(accountDto.getAvg_buy_price())
-                .avg_buy_price_modified(accountDto.getAvg_buy_price_modified())
-                .unit_currency(accountDto.getUnit_currency())
+                .avgBuyPrice(accountDto.getAvgBuyPrice())
+                .avgBuyPriceModified(accountDto.getAvgBuyPriceModified())
+                .unitCurrency(accountDto.getUnitCurrency())
                 .build();
         accountRepository.save(account);
     }

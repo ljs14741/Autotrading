@@ -1,7 +1,6 @@
 package com.bitcoin.autotrading.coin.controller;
 
-import com.bitcoin.autotrading.coin.domain.CoinPrice;
-import com.bitcoin.autotrading.coin.repository.CoinPriceRepository;
+import com.bitcoin.autotrading.coin.domain.entity.CoinPrice;
 import com.bitcoin.autotrading.coin.service.CoinInfoService;
 import com.bitcoin.autotrading.coin.service.CoinKindService;
 import lombok.RequiredArgsConstructor;

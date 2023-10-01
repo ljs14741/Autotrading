@@ -1,9 +1,8 @@
 package com.bitcoin.autotrading.coin.service;
 
-import com.bitcoin.autotrading.coin.domain.CoinKindDTO;
+import com.bitcoin.autotrading.coin.domain.dto.CoinKindDTO;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Slf4j
 @Service

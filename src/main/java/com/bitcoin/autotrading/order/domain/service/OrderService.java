@@ -1,6 +1,6 @@
 package com.bitcoin.autotrading.order.domain.service;
 
-import com.bitcoin.autotrading.order.domain.Order;
+import com.bitcoin.autotrading.order.domain.entity.Order;
 import com.bitcoin.autotrading.order.domain.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

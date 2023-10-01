@@ -1,7 +1,7 @@
 package com.bitcoin.autotrading.coin.service;
 
-import com.bitcoin.autotrading.coin.domain.CoinPrice;
-import com.bitcoin.autotrading.coin.domain.CoinPriceDTO;
+import com.bitcoin.autotrading.coin.domain.entity.CoinPrice;
+import com.bitcoin.autotrading.coin.domain.dto.CoinPriceDTO;
 import com.bitcoin.autotrading.coin.repository.CoinPriceRepository;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -62,22 +62,22 @@ public class CoinInfoService {
 
         CoinPrice coinPrice = CoinPrice.builder()
                 .market(coinPriceDTO.getMarket())
-                .trade_date(coinPriceDTO.getTrade_date())
-                .trade_time(coinPriceDTO.getTrade_time())
-                .trade_date_kst(coinPriceDTO.getTrade_date_kst())
-                .trade_time_kst(coinPriceDTO.getTrade_time_kst())
-                .opening_price(coinPriceDTO.getOpening_price())
-                .high_price(coinPriceDTO.getHigh_price())
-                .low_price(coinPriceDTO.getLow_price())
-                .trade_price(coinPriceDTO.getTrade_price())
-                .acc_trade_price(coinPriceDTO.getAcc_trade_price())
-                .acc_trade_price_24h(coinPriceDTO.getAcc_trade_price_24h())
-                .acc_trade_volume(coinPriceDTO.getAcc_trade_volume())
-                .acc_trade_volume_24h(coinPriceDTO.getAcc_trade_volume_24h())
-                .highest_52_week_price(coinPriceDTO.getHighest_52_week_price())
-                .highest_52_week_date(coinPriceDTO.getHighest_52_week_date())
-                .lowest_52_week_price(coinPriceDTO.getLowest_52_week_price())
-                .lowest_52_week_date(coinPriceDTO.getLowest_52_week_date())
+                .tradeDate(coinPriceDTO.getTradeDate())
+                .tradeTime(coinPriceDTO.getTradeTime())
+                .tradeDateKst(coinPriceDTO.getTradeDateKst())
+                .tradeTimeKst(coinPriceDTO.getTradeTimeKst())
+                .openingPrice(coinPriceDTO.getOpeningPrice())
+                .highPrice(coinPriceDTO.getHighPrice())
+                .lowPrice(coinPriceDTO.getLowPrice())
+                .tradePrice(coinPriceDTO.getTradePrice())
+                .accTradePrice(coinPriceDTO.getAccTradePrice())
+                .accTradePrice24h(coinPriceDTO.getAccTradePrice24h())
+                .accTradeVolume(coinPriceDTO.getAccTradeVolume())
+                .accTradeVolume24h(coinPriceDTO.getAccTradeVolume24h())
+                .highest52WeekPrice(coinPriceDTO.getHighest52WeekPrice())
+                .highest52WeekDate(coinPriceDTO.getHighest52WeekDate())
+                .lowest52WeekPrice(coinPriceDTO.getLowest52WeekPrice())
+                .lowest52WeekDate(coinPriceDTO.getLowest52WeekDate())
                 .timestamp(coinPriceDTO.getTimestamp())
                 .change(coinPriceDTO.getChange())
                 .build();

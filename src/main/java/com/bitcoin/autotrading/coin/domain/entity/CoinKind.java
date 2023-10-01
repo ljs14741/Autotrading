@@ -1,4 +1,4 @@
-package com.bitcoin.autotrading.coin.domain;
+package com.bitcoin.autotrading.coin.domain.entity;
 
 
 import lombok.*;

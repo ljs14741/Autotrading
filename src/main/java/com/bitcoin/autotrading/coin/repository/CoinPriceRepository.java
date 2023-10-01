@@ -1,7 +1,7 @@
 package com.bitcoin.autotrading.coin.repository;
 // repository 파일은 mapper라고 생각하래
 
-import com.bitcoin.autotrading.coin.domain.CoinPrice;
+import com.bitcoin.autotrading.coin.domain.entity.CoinPrice;
 import org.springframework.data.jpa.repository.JpaRepository; // JPA의 대부분의 자동 쿼리 기능 수행
 import org.springframework.stereotype.Repository;
 

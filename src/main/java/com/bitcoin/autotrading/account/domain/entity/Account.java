@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.account.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,19 +17,24 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @JsonProperty("id")
     private int id;
 
-    private	String	currency; /* 화폐를 의미하는 영문 대문자 코드 */
+    @JsonProperty("currency")
+    private String currency;
 
-    private	Double	balance; /* 주문가능 금액/수량 */
+    @JsonProperty("balance")
+    private Double balance;
 
-    private	Double	locked; /* 주문 중 묶여있는 금액/수량 */
+    @JsonProperty("locked")
+    private Double locked;
 
-    private	Double	avgBuyPrice; /* 매수평균가 */
+    @JsonProperty("avg_buy_price")
+    private Double avgBuyPrice;
 
-    private	Boolean	avgBuyPriceModified; /* 매수평균가 수정 여부 */
+    @JsonProperty("avg_buy_price_modified")
+    private Boolean avgBuyPriceModified;
 
-    private	String	unitCurrency; /* 평단가 기준 화폐 */
-
-
+    @JsonProperty("unit_currency")
+    private String unitCurrency;
 }

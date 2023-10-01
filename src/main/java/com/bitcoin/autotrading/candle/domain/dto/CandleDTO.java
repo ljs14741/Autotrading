@@ -1,6 +1,6 @@
 package com.bitcoin.autotrading.candle.domain.dto;
 
-import com.bitcoin.autotrading.candle.domain.Candle;
+import com.bitcoin.autotrading.candle.domain.entity.Candle;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;

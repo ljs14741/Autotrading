@@ -1,6 +1,7 @@
 package com.bitcoin.autotrading.order.domain.entity;
 
 import com.bitcoin.autotrading.order.domain.dto.OrderDTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,33 +17,74 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uuid", nullable = false)
-    private	String uuid;  //주문의 고유 아이디
+    @JsonProperty("uuid")
+    private String uuid;
 
-    private	String side;  //주문 종류
-    private	String ordType;  //주문 방식
-    private	Double price;    //주문당시 가격
-    private	String state;    //주문상태
-    private	String market;   //마켓 키
-    private	String createdAt;  // 주문생성시간
-    private	Double volume;      // 매도시 필요
-    private Double portfolio;   // 수익률 -임시
-    private	Double remainingVolume;
-    private	String reservedFee;
-    private	String remainingFee;
-    private	String paidFee;
-    private	String locked;
-    private	String executedVolume;
-    private	Integer	tradesCount;
+    @JsonProperty("side")
+    private String side;
 
-    // 체결데이터 - 배열로 옴
-    //private	Array[Object] trades;
-    private	String tradesMarket;
-    private	String tradesUuid;
-    private	String tradesPrice;
-    private	String tradesVolume;
-    private	String tradesFunds;
-    private	String tradesSide;
-    private	String tradesCreatedAt;
+    @JsonProperty("ord_type")
+    private String ordType;
+
+    @JsonProperty("price")
+    private Double price;
+
+    @JsonProperty("state")
+    private String state;
+
+    @JsonProperty("market")
+    private String market;
+
+    @JsonProperty("created_at")
+    private String createdAt;
+
+    @JsonProperty("volume")
+    private Double volume;
+
+    @JsonProperty("portfolio")
+    private Double portfolio;
+
+    @JsonProperty("remaining_volume")
+    private Double remainingVolume;
+
+    @JsonProperty("reserved_fee")
+    private String reservedFee;
+
+    @JsonProperty("remaining_fee")
+    private String remainingFee;
+
+    @JsonProperty("paid_fee")
+    private String paidFee;
+
+    @JsonProperty("locked")
+    private String locked;
+
+    @JsonProperty("executed_volume")
+    private String executedVolume;
+
+    @JsonProperty("trades_count")
+    private Integer tradesCount;
+
+    @JsonProperty("trades_market")
+    private String tradesMarket;
+
+    @JsonProperty("trades_uuid")
+    private String tradesUuid;
+
+    @JsonProperty("trades_price")
+    private String tradesPrice;
+
+    @JsonProperty("trades_volume")
+    private String tradesVolume;
+
+    @JsonProperty("trades_funds")
+    private String tradesFunds;
+
+    @JsonProperty("trades_side")
+    private String tradesSide;
+
+    @JsonProperty("trades_created_at")
+    private String tradesCreated_at;
 
     public static Order toEntity(OrderDTO dto){
         return Order.builder()

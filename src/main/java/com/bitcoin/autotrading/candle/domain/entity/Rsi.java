@@ -1,4 +1,4 @@
-package com.bitcoin.autotrading.candle.domain;
+package com.bitcoin.autotrading.candle.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;

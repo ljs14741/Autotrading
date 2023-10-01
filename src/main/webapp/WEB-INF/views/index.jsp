@@ -15,9 +15,12 @@
   <head>
     <title>Main</title>
     <link rel="stylesheet" type="text/css" href="${path}/resources/css/style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
   </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function (){
@@ -27,7 +30,7 @@
     });
 
     function test(){
-      var data = {};
+      var data = {buy_cnt:"3"};
       data.test1 = "test";
       var jsonStr = JSON.stringify(data) //입력 파라미터
       $.ajax({
@@ -104,20 +107,21 @@
     }
 
     function changeValue() {
-    // alert("value " + value_str.options[value_str.selectedIndex].value +
-    // "text " + value_str.options[value_str.selectedIndex].text)
+      // alert("value " + value_str.options[value_str.selectedIndex].value +
+      // "text " + value_str.options[value_str.selectedIndex].text)
       var valueStr = document.getElementById('coin');
       var requestParam = valueStr.options[valueStr.selectedIndex].text; //선택밸류값은 value_str.options[value_str.selectedIndex].value
       $.ajax({
-        type:"POST",
-        url:"/coinInfoController.coinPriceSelect.do",
-        data:{"requestParam": requestParam},
-        contentType:"application/x-www-form-urlencoded; charset=utf-8",
-        error:onError,
-        success:onSuccess1
+        type: "POST",
+        url: "/coinInfoController.coinPriceSelect.do",
+        data: {"requestParam": requestParam},
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        error: onError,
+        success: onSuccess1
       });
 
       function onSuccess1(data) {
+        alert("111")
         $("#tb3").dataTable({
           lengthChange: false,
           searching: false, // 검색 기능 숨기기
@@ -125,28 +129,20 @@
           paging: false, // 페이징 기능 숨기기
           destroy: true, //테이블 초기화
           data: data,
-          columns:[
-            {data:'market'},
-            {data:'opening_price'},
-            {data:'high_price'},
-            {data:'low_price'},
-            {data:'trade_price'}
+          columns: [
+            {data: 'market'},
+            {data: 'opening_price'},
+            {data: 'high_price'},
+            {data: 'low_price'},
+            {data: 'trade_price'}
           ]
         });
       }
-      // var data = {};
-      // data.test1 = "test";
-      // var jsonStr = JSON.stringify(data) //입력 파라미터
-      // $.ajax({
-      //   type:"POST",
-      //   url:"/test/test123",
-      //   data:jsonStr,
-      //   contentType:"application/json",
-      //   error:onError,
-      //   success:onSuccess
-      // });
     }
 
+    $( function() {
+      $( ".controlgroup" ).controlgroup()
+    } );
   </script>
   <body>
   <h2>종목선택</h2>
@@ -176,11 +172,13 @@
   <table>
     <tr>
       <th>사용가능금액</th>
-      <td>값</td>
+<c:forEach var="accountList" items="${accountList}">
+      <td>${accountList.balance}</td>
+</c:forEach>
     </tr>
     <tr>
       <th>자본금설정</th>
-      <td>값</td>
+      <td class="controlgroup"><input id="horizontal-spinner" class="ui-spinner-input"></td>
     </tr>
     <tr>
       <th>예상 매수 가능 금액</th>
@@ -195,6 +193,7 @@
       <td>값</td>
     </tr>
   </table>
+
   <h2>차트 분석 전략</h2>
   <table>
     <tr>

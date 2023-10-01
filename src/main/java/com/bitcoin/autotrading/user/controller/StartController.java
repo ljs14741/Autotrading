@@ -1,5 +1,7 @@
 package com.bitcoin.autotrading.user.controller;
 
+import com.bitcoin.autotrading.account.domain.Account;
+import com.bitcoin.autotrading.account.service.AccountInfoService;
 import com.bitcoin.autotrading.candle.service.GetRsiByDay;
 import com.bitcoin.autotrading.coin.domain.CoinPrice;
 import com.bitcoin.autotrading.coin.domain.CoinPriceDTO;
@@ -23,15 +25,21 @@ public class StartController {
     public GetRsiByDay getRsiByDay;
     @Autowired
     public CoinInfoService coinInfoService;
-
+    @Autowired
+    public AccountInfoService accountInfoService;
 
     @RequestMapping("/")
     public String index(Model model) throws IOException, JSONException, ParseException {
+        accountInfoService.accountInfoSave();
+        List<Account> accountList = accountInfoService.accountSelect();
+        model.addAttribute("accountList",accountList);
+
         coinInfoService.coinInfoSave();
         List<CoinPrice> list = coinInfoService.coinPriceAllSelect();
         model.addAttribute("list",list);
         return "index";
     }
+
 
     @RequestMapping("/test")
     public String accountInfo(Model model) throws IOException {

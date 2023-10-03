@@ -185,12 +185,12 @@
       <td id="deposit">값</td>
     </tr>
     <tr>
-      <th>예상 매수 가능 수량</th>
-      <td>값</td>
+      <th>분할매수횟수</th>
+      <td class="controlgroup"><input id="buyCnt" class="ui-spinner-input"></td>
     </tr>
     <tr>
-      <th>저점가(일)</th>
-      <td>값</td>
+      <th>분할매도횟수</th>
+      <td class="controlgroup"><input id="sellCnt" class="ui-spinner-input"></td>
     </tr>
   </table>
 

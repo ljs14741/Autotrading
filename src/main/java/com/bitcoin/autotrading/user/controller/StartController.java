@@ -31,7 +31,8 @@ public class StartController {
     public String index(Model model) throws IOException, JSONException, ParseException {
         accountInfoService.accountInfoSave();
         List<Account> accountList = accountInfoService.accountSelect();
-        model.addAttribute("accountList",accountList);
+        int balance = (int)Math.floor(accountList.get(0).getBalance());
+        model.addAttribute("balance",balance);
 
         coinInfoService.coinInfoSave();
         List<CoinPrice> list = coinInfoService.coinPriceAllSelect();

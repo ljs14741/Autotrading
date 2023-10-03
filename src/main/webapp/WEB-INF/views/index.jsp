@@ -8,9 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-  System.out.print("JSPJSP123123");
-%>
 <html>
   <head>
     <title>Main</title>
@@ -23,6 +20,7 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
   <script type="text/javascript">
+
     $(document).ready(function (){
       $("#tb1").css('display','none');
       $("#tb2").css('display','none');
@@ -140,6 +138,10 @@
       }
     }
 
+
+    // document.getElementById("data").innerHTML = balance123;
+
+
     $( function() {
       $( ".controlgroup" ).controlgroup()
     } );
@@ -172,17 +174,15 @@
   <table>
     <tr>
       <th>사용가능금액</th>
-<c:forEach var="accountList" items="${accountList}">
-      <td>${accountList.balance}</td>
-</c:forEach>
+      <td id="balance">${balance}</td>
     </tr>
     <tr>
-      <th>자본금설정</th>
-      <td class="controlgroup"><input id="horizontal-spinner" class="ui-spinner-input"></td>
+      <th>매수금액설정(%)</th>
+      <td class="controlgroup"><input id="buyPercent" class="ui-spinner-input"></td>
     </tr>
     <tr>
-      <th>예상 매수 가능 금액</th>
-      <td>값</td>
+      <th>예수금(매수할 금액)</th>
+      <td id="deposit">값</td>
     </tr>
     <tr>
       <th>예상 매수 가능 수량</th>
@@ -246,5 +246,14 @@
     <tbody>
     </tbody>
   </table>
+  <script type="text/javascript">
+    var btn = document.getElementById("buyPercent");
+    btn.addEventListener("blur", () => {
+      var deposit = document.getElementById("deposit");
+      var balance = document.getElementById("balance").innerText
+      var buyPercent = document.getElementById("buyPercent").value;
+      deposit.innerText = Math.floor(balance*buyPercent/100);
+    });
+  </script>
   </body>
 </html>

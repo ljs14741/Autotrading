@@ -194,19 +194,19 @@
     </tr>
   </table>
 
-  <h2>차트 분석 전략</h2>
+  <h2>매수 매도 조건</h2>
   <table>
     <tr>
       <th>지표</th>
-      <td>콤보박스</td>
+      <td>RSI</td>
     </tr>
     <tr>
-      <th>매수조건</th>
-      <td>값</td>
+      <th>매수조건(입력값 이하)</th>
+      <td class="controlgroup"><input id="sellCondition" class="ui-spinner-input"></td>
     </tr>
     <tr>
-      <th>매도조건</th>
-      <td>rsi값: ${rsi}</td>
+      <th>매도조건(입력값 이상)</th>
+      <td class="controlgroup"><input id="buyCondition" class="ui-spinner-input"></td>
     </tr>
   </table>
   <button onclick="test()">백테스팅 시작</button>

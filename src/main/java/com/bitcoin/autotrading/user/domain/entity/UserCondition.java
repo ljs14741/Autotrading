@@ -36,9 +36,16 @@ public class UserCondition {
     @JsonProperty("buy_condition")
     private Double buyCondition; //매수조건
 
+    @JsonProperty("srt_dttm")
+    private String srtDttm; //시작시각
+
+    @JsonProperty("end_dttm")
+    private String endDttm; //종료시각
+
     @JsonProperty("take_profit_rate")
     private Double takeProfitRate; //익절률
 
     @JsonProperty("stop_loss_rate")
     private Double stopLossRate;   //손절률
+
 }

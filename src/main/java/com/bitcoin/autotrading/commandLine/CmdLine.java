@@ -3,9 +3,8 @@ package com.bitcoin.autotrading.commandLine;
 import com.bitcoin.autotrading.commandLine.domain.ProgramLog;
 import com.bitcoin.autotrading.commandLine.domain.repository.ProgramLogRepository;
 import com.bitcoin.autotrading.account.service.AccountInfoService;
-import com.bitcoin.autotrading.candle.service.DayCandleSearch;
+import com.bitcoin.autotrading.candle.service.GetCandle;
 import com.bitcoin.autotrading.order.service.GetOrdersChance;
-import com.bitcoin.autotrading.candle.service.GetRsiByMinutes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -28,10 +27,8 @@ public class CmdLine implements ApplicationRunner {
 
 
     @Autowired
-    private DayCandleSearch candleSearch;
+    private GetCandle candleSearch;
 
-    @Autowired
-    private GetRsiByMinutes getRsiByMinutes;
     @Autowired
     private GetOrdersChance getOrdersChance;
 

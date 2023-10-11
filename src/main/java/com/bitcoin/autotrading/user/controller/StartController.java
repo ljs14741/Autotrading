@@ -2,7 +2,7 @@ package com.bitcoin.autotrading.user.controller;
 
 import com.bitcoin.autotrading.account.domain.entity.Account;
 import com.bitcoin.autotrading.account.service.AccountInfoService;
-import com.bitcoin.autotrading.candle.service.GetRsiByDay;
+import com.bitcoin.autotrading.candle.service.CalculateRsi;
 import com.bitcoin.autotrading.coin.domain.entity.CoinPrice;
 import com.bitcoin.autotrading.coin.service.CoinInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ import java.util.List;
 @Slf4j
 public class StartController {
 
-    @Autowired
-    public GetRsiByDay getRsiByDay;
+//    @Autowired
+//    public CalculateRsi calculateRsi;
     @Autowired
     public CoinInfoService coinInfoService;
     @Autowired

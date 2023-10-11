@@ -32,11 +32,11 @@ public class CandleDTO {
     @JsonProperty("low_price")
     private	Double	lowPrice;
 
-    @JsonProperty("tradePrice")
+    @JsonProperty("trade_price")
     private	Double	tradePrice;
 
     @JsonProperty("timestamp")
-    private	Long	timeStamp;
+    private	Long	timestamp;
 
     @JsonProperty("candle_acc_trade_price")
     private	Double	candleAccTradePrice;
@@ -60,7 +60,7 @@ public class CandleDTO {
                 .highPrice(candle.getHighPrice())
                 .lowPrice(candle.getLowPrice())
                 .openingPrice(candle.getOpeningPrice())
-                .timeStamp(candle.getTimeStamp())
+                .timestamp(candle.getTimestamp())
                 .tradePrice(candle.getTradePrice())
                 .unit(candle.getUnit())
                 .rsi(candle.getRsi())

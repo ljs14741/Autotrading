@@ -24,6 +24,7 @@
     $(document).ready(function (){
       $("#tb1").css('display','none');
       $("#tb2").css('display','none');
+      $("#tb4").css('display','none');
 
     });
 
@@ -138,9 +139,38 @@
       }
     }
 
-
-    // document.getElementById("data").innerHTML = balance123;
-
+    function volatilityBackTesting() {
+      var requestParam = "123"
+      $.ajax({
+        type: "POST",
+        url: "/volatilityBackTestingController.volatilityBackTesting.do",
+        data: {"requestParam": requestParam},
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        error: onError,
+        success: onSuccess4
+      });
+      function onSuccess4(data) {
+        alert("onSuccess4")
+        console.log("data:: " + data)
+        console.log("data.market:: " + market);
+        $("#tb4").dataTable({
+          lengthChange: false,
+          searching: false, // 검색 기능 숨기기
+          info: false, // 정보 표시 숨기기
+          paging: false, // 페이징 기능 숨기기
+          destroy: true, //테이블 초기화
+          data: data,
+          columns: [
+            {data: 'market'},
+            {data: 'opening_price'},
+            {data: 'high_price'},
+            {data: 'low_price'},
+            {data: 'trade_price'},
+            {data: 'range'}
+          ]
+        });
+      }
+    }
 
     $( function() {
       $( ".controlgroup" ).controlgroup()
@@ -167,6 +197,7 @@
         <th>고가</th>
         <th>저가</th>
         <th>종가</th>
+        <th>range</th>
       </tr>
     </thead>
   </table>
@@ -246,6 +277,19 @@
     <tbody>
     </tbody>
   </table>
+  <table id="tb4">
+    <thead>
+    <tr>
+      <th>11</th>
+      <th>22</th>
+      <th>33</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+    </tr>
+    </thead>
+  </table>
+  <button onclick="volatilityBackTesting()">변동성돌파 백테스팅</button>
   <script type="text/javascript">
     var btn = document.getElementById("buyPercent");
     btn.addEventListener("blur", () => {
@@ -254,6 +298,7 @@
       var buyPercent = document.getElementById("buyPercent").value;
       deposit.innerText = Math.floor(balance*buyPercent/100);
     });
+
   </script>
   </body>
 </html>

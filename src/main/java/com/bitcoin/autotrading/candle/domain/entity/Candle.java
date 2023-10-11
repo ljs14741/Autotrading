@@ -20,6 +20,7 @@ public class Candle {
     private long id;
 
     @JsonProperty("market")
+    @Column(name = "market")
     private	String	market;
 
     @JsonProperty("candle_date_time_utc")
@@ -37,11 +38,11 @@ public class Candle {
     @JsonProperty("low_price")
     private	Double	lowPrice;
 
-    @JsonProperty("tradePrice")
+    @JsonProperty("trade_price")
     private	Double	tradePrice;
 
     @JsonProperty("timestamp")
-    private	Long	timeStamp;
+    private	Long	timestamp;
 
     @JsonProperty("candle_acc_trade_price")
     private	Double	candleAccTradePrice;
@@ -55,4 +56,12 @@ public class Candle {
     @JsonProperty("rsi")
     private Double  rsi;
 
+    @JsonProperty("range")
+    private Double range;
+
+    @JsonProperty("target")
+    private Double target;
+
+    @JsonProperty("earnings")
+    private Double earnings;
 }

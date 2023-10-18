@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.candle.domain.repository;
 
+import com.bitcoin.autotrading.candle.domain.dto.CandleDTO;
 import com.bitcoin.autotrading.candle.domain.entity.Candle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -61,5 +62,5 @@ public interface CandleRepository extends JpaRepository<Candle, String> {
                                         ", rsi " +
                                         "from candle " +
                                         "where 1=1) as x) as y", nativeQuery = true)
-    public List<Candle> selectSQL();
+    public List<CandleDTO.CandleProjection> selectSQL();
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UserCondition {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +26,7 @@ public class UserCondition {
     @JsonProperty("market")
     private String market; //마켓(BTC)
 
-    @JsonProperty("buyCnt")
+    @JsonProperty("buy_cnt")
     private Long   buyCnt; //분할 매수 횟수
 
     @JsonProperty("sell_cnt")
@@ -37,15 +39,21 @@ public class UserCondition {
     private Double buyCondition; //매수조건
 
     @JsonProperty("srt_dttm")
-    private String srtDttm; //시작시각
+    private LocalDateTime srtDttm; //시작시각
 
     @JsonProperty("end_dttm")
-    private String endDttm; //종료시각
+    private LocalDateTime endDttm; //종료시각
 
     @JsonProperty("take_profit_rate")
     private Double takeProfitRate; //익절률
 
     @JsonProperty("stop_loss_rate")
     private Double stopLossRate;   //손절률
+
+    @JsonProperty("unit")
+    private String unit;
+
+    @JsonProperty("unit_val")
+    private Long unitVal;
 
 }

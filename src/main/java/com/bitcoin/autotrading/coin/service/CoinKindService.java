@@ -22,6 +22,9 @@ public class CoinKindService {
         public String temp = null;
 
         public String coinKind() throws IOException, JSONException {
+
+        this.coinKind = "=";
+        this.temp = null;
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()

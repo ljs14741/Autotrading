@@ -29,8 +29,18 @@
     });
 
     function test(){
-      var data = {buy_cnt:"3"};
-      data.test1 = "test";
+      var data = {
+                    buy_cnt:$("#buy_cnt").val(),
+                    sell_cnt:$("#sell_cnt").val(),
+                    deposit:$("#deposit").text(),
+                    market:$("select[name=market] option:selected").text(),
+                    sell_condition:$("#sell_condition").val(),
+                    buy_condition:$("#buy_condition").val(),
+                    srt_dttm:$("#srt_dttm").val(),
+                    end_dttm:$("#end_dttm").val(),
+                    unit:$("select[name=unit] option:selected").val(),
+                    unit_val:$("#unit_val").val()
+                 };
       var jsonStr = JSON.stringify(data) //입력 파라미터
       $.ajax({
         type:"POST",
@@ -45,7 +55,7 @@
     function onSuccess(data){
 
       $("#tb1").DataTable().destroy();
-      $("#tb2").DataTable().destroy();
+      //$("#tb2").DataTable().destroy();
 
 
       $("#tb1").dataTable({
@@ -57,7 +67,7 @@
         info: false,
         // 페이징 기능 숨기기
         paging: false,
-        data: data.orderList,
+        data: data.order_list,
         columns:[
           {data:'uuid'},
           {data:'market'},
@@ -69,6 +79,7 @@
         ]
       });
 
+      /*
       $("#tb2").dataTable({
         // 표시 건수기능 숨기기
         lengthChange: false,
@@ -93,11 +104,10 @@
           {data:'rsi'}
         ]
       });
-
+      */
 
       $("#tb1").css('display','inline');
-      $("#tb2").css('display','inline');
-
+      //$("#tb2").css('display','inline');
 
 
     }
@@ -108,7 +118,7 @@
     function changeValue() {
       // alert("value " + value_str.options[value_str.selectedIndex].value +
       // "text " + value_str.options[value_str.selectedIndex].text)
-      var valueStr = document.getElementById('coin');
+      var valueStr = document.getElementById('market');
       var requestParam = valueStr.options[valueStr.selectedIndex].text; //선택밸류값은 value_str.options[value_str.selectedIndex].value
       $.ajax({
         type: "POST",
@@ -181,7 +191,7 @@
     <tr>
       <th>코인</th>
       <td>
-        <select id="coin" name="coin" onchange="changeValue()" size="1">
+        <select id="market" name="market" onchange="changeValue()" size="1">
           <c:forEach var="list" items="${list}">
             <option value = "1">${list.market}</option>
           </c:forEach>
@@ -217,11 +227,11 @@
     </tr>
     <tr>
       <th>분할매수횟수</th>
-      <td class="controlgroup"><input id="buyCnt" class="ui-spinner-input"></td>
+      <td class="controlgroup"><input id="buy_cnt" class="ui-spinner-input"></td>
     </tr>
     <tr>
       <th>분할매도횟수</th>
-      <td class="controlgroup"><input id="sellCnt" class="ui-spinner-input"></td>
+      <td class="controlgroup"><input id="sell_cnt" class="ui-spinner-input"></td>
     </tr>
   </table>
 
@@ -232,14 +242,41 @@
       <td>RSI</td>
     </tr>
     <tr>
+      <th>단위</th>
+      <td class="controlgroup">
+        <select id="unit" name="unit" onchange="changeValue()" size="1">
+          <option value = "MIN">분</option>
+          <option value = "DAY">일</option>
+          <option value = "MON">월</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <th>단위(값)</th>
+      <td class="controlgroup"><input id="unit_val" class="ui-spinner-input"></td>
+    </tr>
+    <tr>
       <th>매수조건(입력값 이하)</th>
-      <td class="controlgroup"><input id="sellCondition" class="ui-spinner-input"></td>
+      <td class="controlgroup"><input id="buy_condition" class="ui-spinner-input"></td>
     </tr>
     <tr>
       <th>매도조건(입력값 이상)</th>
-      <td class="controlgroup"><input id="buyCondition" class="ui-spinner-input"></td>
+      <td class="controlgroup"><input id="sell_condition" class="ui-spinner-input"></td>
     </tr>
   </table>
+
+  <h2>백테스팅 기간 설정</h2>
+  <table>
+    <tr>
+      <th>시작</th>
+      <td class="controlgroup"><input type="datetime-local" id="srt_dttm"></td>
+    </tr>
+    <tr>
+      <th>종료</th>
+      <td class="controlgroup"><input type="datetime-local" id="end_dttm"></td>
+    </tr>
+  </table>
+
   <button onclick="test()">백테스팅 시작</button>
   <button>자동거래 시작</button>
   <table id="tb1">

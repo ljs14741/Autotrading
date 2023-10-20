@@ -12,9 +12,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @NoArgsConstructor
@@ -34,36 +38,51 @@ public class BackTestingService {
 
     private String currentDateString;
 
+    private List<OrderDTO>  orderDTOList;
+    private AccountDTO accountDTO;
+    private UserCondition userCondition;
+    private CandleDTO candleDTO;
+
     /**
      * 백테스팅용
      */
-    public ResponseBackTestingDTO backTesting(UserCondition userCondition){
+    public ResponseBackTestingDTO backTesting(UserCondition userCondition) throws Exception{
 
+        this.userCondition = userCondition;
+        this.orderDTOList = new ArrayList<>();
+        this.accountDTO = null;
 
-        List<OrderDTO> orderDTOList = null;
-        AccountDTO accountDTO = null;
+        LocalDateTime curruentDate = userCondition.getSrtDttm();
+        this.currentDateString = userCondition.getSrtDttm().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+        Duration duration = Duration.between(userCondition.getSrtDttm(), userCondition.getEndDttm());
+        long diffSec = duration.getSeconds();
 
-        try {
-
-            SimpleDateFormat sdfYMDHms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date endDttm = sdfYMDHms.parse(userCondition.getSrtDttm());
-            Date srtDttm = sdfYMDHms.parse(userCondition.getEndDttm());
-            this.currentDateString = sdfYMDHms.format(srtDttm.getTime());
-
-            long diffSec = (endDttm.getTime() - srtDttm.getTime()) / (1000 * 60); // 분 차이
-            long time = (long)(diffSec/30); //예시 - 30분봉기준
-            Calendar cal = Calendar.getInstance();
-
-            for (int i = 0; i < time; i++) {
-                this.process(userCondition, orderDTOList, accountDTO);
-                cal.setTime(srtDttm);
-                cal.add(Calendar.MINUTE, +30); //30분 봉이기 때문에 30분 더하기
-                currentDateString = sdfYMDHms.format(cal.getTime());
-            }
-
-        }catch (Exception e){
-            log.error(e.getMessage());
+        int unit;
+        if(userCondition.getUnit().equals("MIN")){
+            unit=1;
+        } else if (userCondition.getUnit().equals("DAY")) {
+            unit=1440;
+        } else if (userCondition.getUnit().equals("MON")) {
+            unit=43800;
+        } else {
+            unit=0;
         }
+
+        long time = diffSec/(unit * userCondition.getUnitVal() * 60);
+        log.info(String.valueOf(time));
+        for (int i = 0; i < time; i++) {
+            this.process();
+            curruentDate = curruentDate.plusMinutes(unit * userCondition.getUnitVal());
+            log.info(curruentDate.toString());
+            this.currentDateString = curruentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
+            log.info(currentDateString);
+        }
+
+        for (int i = 0; i < orderDTOList.size(); i++) {
+            log.info(orderDTOList.get(i).toString());
+        }
+        log.info(accountDTO.toString());
+
 
         return ResponseBackTestingDTO.builder()
                 .orderList(orderDTOList)
@@ -72,33 +91,34 @@ public class BackTestingService {
     }
 
 
-    public void process(UserCondition userCondition, List<OrderDTO> list, AccountDTO accountDTO) throws Exception{
+    public void process() throws Exception{
 
 
         //1. RSI 계산
-        CandleDTO candleDTO = getIndex(userCondition);
+        CandleDTO candleDTO = getIndex();
 
         //2. 조건 검증
-        int isOrder = validation(candleDTO, userCondition);
+        int isOrder = validation();
 
         //3. 주문
 
         //4. 거래내역 생성
         if(isOrder !=0)
-            makeTransaction(candleDTO, userCondition, isOrder, list, accountDTO);
+            makeTransaction(isOrder);
 
     }
 
-    public CandleDTO getIndex(UserCondition userCondition) throws Exception{
+    public CandleDTO getIndex() throws Exception{
 
         double rsi = getRsi.getRsi(currentDateString,"minutes/30",userCondition.getMarket());
-        CandleDTO candleDTO = getCandle.getCandle(currentDateString,"minutes/30",userCondition.getMarket(),1).get(0);
+        candleDTO = getCandle.getCandle(currentDateString,"minutes/30",userCondition.getMarket(),1).get(0);
         candleDTO.setRsi(rsi);
+        log.info(currentDateString+" : "+rsi);
         return candleDTO;
 
     }
 
-    public int validation(CandleDTO candleDTO, UserCondition userCondition){
+    public int validation(){
 
         double rsiBuyCond = userCondition.getBuyCondition();
         double rsiSellCond = userCondition.getSellCondition();
@@ -112,7 +132,7 @@ public class BackTestingService {
         return 0;      //없음
     }
 
-    public void makeTransaction(CandleDTO candleDTO, UserCondition userCondition,int isOrder, List<OrderDTO> orderList, AccountDTO account) {
+    public void makeTransaction(int isOrder) {
 
         double tradePrice = candleDTO.getTradePrice(); //현재가
         double moneyByTime = (double) userCondition.getDeposit() / userCondition.getBuyCnt(); //1회 매수 금액
@@ -120,50 +140,52 @@ public class BackTestingService {
         //매수
         if(isOrder == 2){
 
-            orderList.add(OrderDTO.builder()
-                    .uuid(String.valueOf(orderList.size()+1))
+            orderDTOList.add(OrderDTO.builder()
+                    .uuid(String.valueOf(orderDTOList.size()+1))
                     .market(userCondition.getMarket())
-                    .price((double) moneyByTime)
+                    .price(moneyByTime)
                     .ordType("price") //시장가주문 - 매수
                     .state("done")     //완료
                     .side("bid")      //매수
-                    .volume((double) moneyByTime / tradePrice)
+                    .volume(moneyByTime / tradePrice)
                     .createdAt(currentDateString)
                     .build());
 
-            if (account == null) {
-                account = AccountDTO.builder()
+            if (accountDTO == null) {
+                accountDTO = AccountDTO.builder()
                         .currency(userCondition.getMarket())
-                        .balance((double) moneyByTime / tradePrice)
-                        .avgBuyPrice((double) tradePrice) //평단
+                        .balance(moneyByTime / tradePrice)
+                        .avgBuyPrice(tradePrice) //평단
                         .unitCurrency(userCondition.getMarket())
                         .build();
 
             } else {
-                double balance = (double) moneyByTime / tradePrice;
+                double balance = moneyByTime / tradePrice;
                 //평단계산 = (n차 매수 가격 * 수량 + (n+1)차 매수 가격) / 전체 수량
-                double avg_trade_price = (account.getAvgBuyPrice() * account.getBalance()
-                        + moneyByTime)
-                        / (account.getBalance() + balance);
 
-                account.setBalance( balance + account.getBalance()); //수량
-                account.setAvgBuyPrice(avg_trade_price);
+                log.info(accountDTO.toString());
+                double avg_trade_price = (accountDTO.getAvgBuyPrice() * accountDTO.getBalance()
+                        + moneyByTime)
+                        / (accountDTO.getBalance() + balance);
+
+                accountDTO.setBalance( balance + accountDTO.getBalance()); //수량
+                accountDTO.setAvgBuyPrice(avg_trade_price);
 
             }
 
         }else {
 
             //매도
-            if (account != null) {
+            if (accountDTO != null) {
 
                 // 수익률 = 매도평균가(현재가) / 매수평균가
-                double portfolio = tradePrice / account.getAvgBuyPrice() *100 -100;
+                double portfolio = tradePrice / accountDTO.getAvgBuyPrice() * 100-100;
 
-                orderList.add(OrderDTO.builder()
-                        .uuid(String.valueOf(orderList.size()+1))
+                orderDTOList.add(OrderDTO.builder()
+                        .uuid(String.valueOf(orderDTOList.size()+1))
                         .market(userCondition.getMarket())
-                        .price(account.getBalance() * tradePrice)
-                        .volume(account.getBalance())
+                        .price(accountDTO.getBalance() * tradePrice)
+                        .volume(accountDTO.getBalance())
                         .ordType("market") //시장가주문 - 매도
                         .state("done")     //완료
                         .side("ask")      //매도
@@ -171,7 +193,7 @@ public class BackTestingService {
                         .portfolio(portfolio)
                         .build());
 
-                account = null;
+                accountDTO = null;
             }
         }
 

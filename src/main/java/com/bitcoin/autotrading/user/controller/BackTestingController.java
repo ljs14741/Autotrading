@@ -31,8 +31,11 @@ public class BackTestingController {
 
     @RequestMapping("/testFromToTrading/trading")
     @ResponseBody
-    public ResponseBackTestingDTO fromToTrading(@RequestBody UserCondition userCondition) {
+    public ResponseBackTestingDTO fromToTrading(@RequestBody UserCondition userCondition) throws Exception {
         ResponseBackTestingDTO list = backTestingService.backTesting(userCondition);
+
+//        ResponseBackTestingDTO list = null;
+        log.info(userCondition.toString());
 
         return list;
     }

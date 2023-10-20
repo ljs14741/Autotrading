@@ -56,12 +56,12 @@ public class Candle {
     @JsonProperty("rsi")
     private Double  rsi;
 
-    @JsonProperty("range")
-    private Double range;
-
-    @JsonProperty("target")
-    private Double target;
-
-    @JsonProperty("earnings")
-    private Double earnings;
+//    @JsonProperty("range")
+//    private Double range;
+//
+//    @JsonProperty("target")
+//    private Double target;
+//
+//    @JsonProperty("earnings")
+//    private Double earnings;
 }

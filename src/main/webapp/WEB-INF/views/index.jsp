@@ -131,6 +131,8 @@
 
       function onSuccess1(data) {
         alert("111")
+        console.log("data:: " + data)
+        console.log("data.market:: " + market);
         $("#tb3").dataTable({
           lengthChange: false,
           searching: false, // 검색 기능 숨기기
@@ -161,8 +163,6 @@
       });
       function onSuccess4(data) {
         alert("onSuccess4")
-        console.log("data:: " + data)
-        console.log("data.market:: " + market);
         $("#tb4").dataTable({
           lengthChange: false,
           searching: false, // 검색 기능 숨기기
@@ -176,9 +176,10 @@
             {data: 'high_price'},
             {data: 'low_price'},
             {data: 'trade_price'},
-            {data: 'range'}
+            {data: 'earnings'}
           ]
         });
+        $("#tb4").css('display','inline');
       }
     }
 
@@ -279,6 +280,7 @@
 
   <button onclick="test()">백테스팅 시작</button>
   <button>자동거래 시작</button>
+  <button onclick="volatilityBackTesting()">변동성돌파 백테스팅</button>
   <table id="tb1">
     <thead>
     <tr>
@@ -314,19 +316,19 @@
     <tbody>
     </tbody>
   </table>
+
   <table id="tb4">
     <thead>
-    <tr>
-      <th>11</th>
-      <th>22</th>
-      <th>33</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-    </tr>
+      <tr>
+        <th>코인</th>
+        <th>시가</th>
+        <th>고가</th>
+        <th>저가</th>
+        <th>종가</th>
+        <th>수익률</th>
+      </tr>
     </thead>
   </table>
-  <button onclick="volatilityBackTesting()">변동성돌파 백테스팅</button>
   <script type="text/javascript">
     var btn = document.getElementById("buyPercent");
     btn.addEventListener("blur", () => {

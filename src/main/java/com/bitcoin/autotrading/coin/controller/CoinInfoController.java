@@ -42,6 +42,7 @@ public class CoinInfoController {
     public List<CoinPrice> coinPriceSelect(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String requestParam = request.getParameter("requestParam");
         List<CoinPrice> responseParam = coinInfoService.coinPriceSelect(requestParam);
+        log.info("haha: " + responseParam);
         return responseParam;
     }
 }

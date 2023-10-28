@@ -49,6 +49,8 @@ dependencies {
     implementation 'javax.servlet:jstl:1.2'
 
     implementation 'com.google.code.gson:gson:2.9.0'
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 }
 
 tasks.named('test') {

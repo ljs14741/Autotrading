@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.h2database:h2'
     implementation 'com.auth0:java-jwt:4.3.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -51,6 +52,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.12'
 }
 
 tasks.named('test') {

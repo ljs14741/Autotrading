@@ -183,6 +183,38 @@
       }
     }
 
+    function jinsuBackTesting() {
+      var requestParam = "123"
+      $.ajax({
+        type: "POST",
+        url: "/jinsuBackTestingController.jinsuBackTesting.do",
+        data: {"requestParam": requestParam},
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        error: onError,
+        success: onSuccess5
+      });
+      function onSuccess5(data) {
+        alert("onSuccess5")
+        $("#tb5").dataTable({
+          lengthChange: false,
+          searching: false, // 검색 기능 숨기기
+          info: false, // 정보 표시 숨기기
+          paging: false, // 페이징 기능 숨기기
+          destroy: true, //테이블 초기화
+          data: data,
+          columns: [
+            {data: 'market'},
+            {data: 'opening_price'},
+            {data: 'high_price'},
+            {data: 'low_price'},
+            {data: 'trade_price'},
+            {data: 'earnings'}
+          ]
+        });
+        $("#tb5").css('display','inline');
+      }
+    }
+
     $( function() {
       $( ".controlgroup" ).controlgroup()
     } );
@@ -281,6 +313,7 @@
   <button onclick="test()">백테스팅 시작</button>
   <button>자동거래 시작</button>
   <button onclick="volatilityBackTesting()">변동성돌파 백테스팅</button>
+  <button onclick="jinsuBackTesting()">진수의 백테스팅</button>
   <table id="tb1">
     <thead>
     <tr>

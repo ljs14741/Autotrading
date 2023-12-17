@@ -184,12 +184,17 @@
     }
 
     function jinsuBackTesting() {
-      var requestParam = "123"
+      var data = {
+        market:$("select[name=market] option:selected").text(),
+        srt_dttm:$("#srt_dttm").val(),
+        end_dttm:$("#end_dttm").val()
+      };
+      var jsonStr = JSON.stringify(data) //입력 파라미터
       $.ajax({
         type: "POST",
         url: "/jinsuBackTestingController.jinsuBackTesting.do",
-        data: {"requestParam": requestParam},
-        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        data: jsonStr,
+        contentType: "application/json",
         error: onError,
         success: onSuccess5
       });
@@ -200,6 +205,7 @@
           searching: false, // 검색 기능 숨기기
           info: false, // 정보 표시 숨기기
           paging: false, // 페이징 기능 숨기기
+
           destroy: true, //테이블 초기화
           data: data,
           columns: [

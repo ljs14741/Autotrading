@@ -26,6 +26,8 @@ import java.util.List;
 @Slf4j
 public class JinsuBackTestingService {
     @Autowired
+    private MapperService mapperService;
+    @Autowired
     private RequestUpbit requestUpbit;
 
     @Autowired
@@ -37,15 +39,15 @@ public class JinsuBackTestingService {
         this.candleRepository = candleRepository;
     }
 
-    public void JinsuBackTesting(UserCondition userCondition) throws JSONException, IOException, ParseException {
+    public List<CandleDTO> JinsuBackTesting(UserCondition userCondition) throws JSONException, IOException, ParseException {
         // 0. 파라미터 받기
         this.currentDateString = userCondition.getSrtDttm().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         LocalDateTime curruntDate = userCondition.getSrtDttm();
         log.info("curruntDate : " + curruntDate);
 
-        /*
+
         // 1. 코인 정보
-        String url = "https://api.upbit.com/v1/candles/days?market=KRW-XRP&to=2023-10-27 09:00:00&count=200";
+        String url = "https://api.upbit.com/v1/candles/days?market=" + userCondition.getMarket() + "&to="+ currentDateString + "&count=10";
         String data = requestUpbit.request(url);
         JSONArray jsonArray = new JSONArray(data);
         List<CandleDTO> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDTO>() {
@@ -54,7 +56,7 @@ public class JinsuBackTestingService {
         list.forEach(item -> {
             coinVolatilityInsert(item);
         });
-         */
+
 
         // 2. rsi 값
         double rsi = getRsi.getRsi(currentDateString,"days",userCondition.getMarket());
@@ -63,7 +65,9 @@ public class JinsuBackTestingService {
         // 3. 1번 2번 조인 및 수익률계산
 
         // 4. 화면 반환
-
+        List<CandleDTO> can = mapperService.mapAll(candleRepository.selectSQL(),CandleDTO.class);
+        log.info("진백 can: " + can);
+        return can;
     }
 
     @Transactional

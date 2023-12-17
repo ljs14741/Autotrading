@@ -25,7 +25,7 @@
       $("#tb1").css('display','none');
       $("#tb2").css('display','none');
       $("#tb4").css('display','none');
-
+      $("#tb5").css('display','none');
     });
 
     function test(){
@@ -152,7 +152,7 @@
     }
 
     function volatilityBackTesting() {
-      var requestParam = "123"
+      var requestParam = "123";
       $.ajax({
         type: "POST",
         url: "/volatilityBackTestingController.volatilityBackTesting.do",
@@ -189,7 +189,7 @@
         srt_dttm:$("#srt_dttm").val(),
         end_dttm:$("#end_dttm").val()
       };
-      var jsonStr = JSON.stringify(data) //입력 파라미터
+      var jsonStr = JSON.stringify(data); //입력 파라미터
       $.ajax({
         type: "POST",
         url: "/jinsuBackTestingController.jinsuBackTesting.do",
@@ -209,6 +209,7 @@
           destroy: true, //테이블 초기화
           data: data,
           columns: [
+            {data: 'candle_date_time_kst'},
             {data: 'market'},
             {data: 'opening_price'},
             {data: 'high_price'},
@@ -366,6 +367,20 @@
         <th>종가</th>
         <th>수익률</th>
       </tr>
+    </thead>
+  </table>
+
+  <table id="tb5">
+    <thead>
+    <tr>
+      <th>일자</th>
+      <th>코인</th>
+      <th>시가</th>
+      <th>고가</th>
+      <th>저가</th>
+      <th>종가</th>
+      <th>수익률</th>
+    </tr>
     </thead>
   </table>
   <script type="text/javascript">

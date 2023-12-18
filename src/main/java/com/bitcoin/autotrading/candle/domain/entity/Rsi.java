@@ -1,9 +1,7 @@
 package com.bitcoin.autotrading.candle.domain.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,20 +9,18 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "rsi")
+@AllArgsConstructor
+@Builder
 public class Rsi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String time_cd;
+    @JsonProperty("candle_date_time_kst")
+    private	String	candleDateTimeKst;
 
+    @JsonProperty("rsi")
     private double rsi;
-    @Builder
-    public Rsi(long id, String time_cd, double rsi){
-        this.id=id;
-        this.time_cd=time_cd;
-        this.rsi=rsi;
-    }
 
 }

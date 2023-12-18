@@ -2,8 +2,9 @@ package com.bitcoin.autotrading.user.service;
 
 import com.bitcoin.autotrading.candle.domain.dto.CandleDTO;
 import com.bitcoin.autotrading.candle.domain.entity.Candle;
+import com.bitcoin.autotrading.candle.domain.entity.Rsi;
 import com.bitcoin.autotrading.candle.domain.repository.CandleRepository;
-import com.bitcoin.autotrading.candle.service.CalculateRsi;
+import com.bitcoin.autotrading.candle.domain.repository.RsiRepository;
 import com.bitcoin.autotrading.candle.service.GetRsi;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.bitcoin.autotrading.common.RequestUpbit;
@@ -33,10 +34,13 @@ public class JinsuBackTestingService {
     @Autowired
     GetRsi getRsi;
     private final CandleRepository candleRepository;
+    private final RsiRepository rsiRepository;
+
     private String currentDateString;
 
-    public JinsuBackTestingService(CandleRepository candleRepository) {
+    public JinsuBackTestingService(CandleRepository candleRepository, RsiRepository rsiRepository) {
         this.candleRepository = candleRepository;
+        this.rsiRepository = rsiRepository;
     }
 
     public List<CandleDTO> JinsuBackTesting(UserCondition userCondition) throws JSONException, IOException, ParseException {
@@ -57,10 +61,21 @@ public class JinsuBackTestingService {
             coinVolatilityInsert(item);
         });
 
+        //curruntDate : 2023-12-18T22:26
+        // 2. rsi 저장
+        log.info("candleDTO list : " + list);
+        for(int i=0; i<list.size(); i++) {
+            log.info("ㅋ_ㅋ : " + list.get(i).getCandleDateTimeKst());
+            this.currentDateString = list.get(i).getCandleDateTimeKst();
+            double rsidata = getRsi.getRsi(currentDateString,"days",userCondition.getMarket());
+            log.info("rsidata : " + rsidata);
 
-        // 2. rsi 값
-        double rsi = getRsi.getRsi(currentDateString,"days",userCondition.getMarket());
-        log.info("rsi : " + rsi);
+            Rsi rsi = Rsi.builder()
+                    .rsi(rsidata)
+                    .candleDateTimeKst(currentDateString)
+                    .build();
+            rsiRepository.save(rsi);
+        }
 
         // 3. 1번 2번 조인 및 수익률계산
 

@@ -20,7 +20,7 @@ public class Rsi {
     @JsonProperty("candle_date_time_kst")
     private	String	candleDateTimeKst;
 
-    @JsonProperty("rsi")
-    private double rsi;
+    @JsonProperty("rsi_value")
+    private double rsiValue;
 
 }

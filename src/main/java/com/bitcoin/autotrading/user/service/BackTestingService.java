@@ -112,7 +112,7 @@ public class BackTestingService {
 
         double rsi = getRsi.getRsi(currentDateString,"minutes/30",userCondition.getMarket());
         candleDTO = getCandle.getCandle(currentDateString,"minutes/30",userCondition.getMarket(),1).get(0);
-        candleDTO.setRsi(rsi);
+        candleDTO.setRsiValue(rsi);
         log.info(currentDateString+" : "+rsi);
         return candleDTO;
 
@@ -122,7 +122,7 @@ public class BackTestingService {
 
         double rsiBuyCond = userCondition.getBuyCondition();
         double rsiSellCond = userCondition.getSellCondition();
-        double rsi = candleDTO.getRsi();
+        double rsi = candleDTO.getRsiValue();
 
         if (rsi < rsiBuyCond) {
             return 2;  //매수

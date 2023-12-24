@@ -215,7 +215,7 @@
             {data: 'high_price'},
             {data: 'low_price'},
             {data: 'trade_price'},
-            {data: 'earnings'}
+            {data: 'rsi_value'}
           ]
         });
         $("#tb5").css('display','inline');
@@ -379,7 +379,7 @@
       <th>고가</th>
       <th>저가</th>
       <th>종가</th>
-      <th>수익률</th>
+      <th>rsi</th>
     </tr>
     </thead>
   </table>

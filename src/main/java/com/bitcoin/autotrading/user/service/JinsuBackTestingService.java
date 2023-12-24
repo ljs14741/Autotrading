@@ -4,6 +4,7 @@ import com.bitcoin.autotrading.candle.domain.dto.CandleDTO;
 import com.bitcoin.autotrading.candle.domain.entity.Candle;
 import com.bitcoin.autotrading.candle.domain.entity.Rsi;
 import com.bitcoin.autotrading.candle.domain.repository.CandleRepository;
+import com.bitcoin.autotrading.candle.domain.repository.CandleRsiRepository;
 import com.bitcoin.autotrading.candle.domain.repository.RsiRepository;
 import com.bitcoin.autotrading.candle.service.GetRsi;
 import com.bitcoin.autotrading.common.JsonTransfer;
@@ -36,11 +37,14 @@ public class JinsuBackTestingService {
     private final CandleRepository candleRepository;
     private final RsiRepository rsiRepository;
 
+    private final CandleRsiRepository candleRsiRepository;
+
     private String currentDateString;
 
-    public JinsuBackTestingService(CandleRepository candleRepository, RsiRepository rsiRepository) {
+    public JinsuBackTestingService(CandleRepository candleRepository, RsiRepository rsiRepository, CandleRsiRepository candleRsiRepository) {
         this.candleRepository = candleRepository;
         this.rsiRepository = rsiRepository;
+        this.candleRsiRepository = candleRsiRepository;
     }
 
     public List<CandleDTO> JinsuBackTesting(UserCondition userCondition) throws JSONException, IOException, ParseException {
@@ -71,21 +75,31 @@ public class JinsuBackTestingService {
             log.info("rsidata : " + rsidata);
 
             Rsi rsi = Rsi.builder()
-                    .rsi(rsidata)
+                    .rsiValue(rsidata)
                     .candleDateTimeKst(currentDateString)
                     .build();
             rsiRepository.save(rsi);
         }
 
         // 3. 1번 2번 조인 및 수익률계산
+        List<CandleDTO> qwer = GetJoinResults();
+        log.info("하하하" + qwer);
+
 
         // 4. 화면 반환
-        List<CandleDTO> can = mapperService.mapAll(candleRepository.selectSQL(),CandleDTO.class);
-        log.info("진백 can: " + can);
-        return can;
+//        List<CandleDTO> can = mapperService.mapAll(candleRepository.selectSQL(),CandleDTO.class);
+//        log.info("진백 can: " + can);
+        return qwer;
+    }
+    @Transactional
+    public List<CandleDTO> GetJoinResults(){
+        log.info("GetJoinResults");
+
+        return mapperService.mapAll(candleRsiRepository.findByCandleRsi(),CandleDTO.class);
     }
 
     @Transactional
+
     public void coinVolatilityInsert(CandleDTO candleDTO) {
         log.info("insertinsertinsert: " + candleDTO);
 

@@ -47,8 +47,8 @@ public class CandleDTO {
     @JsonProperty("unit")
     private Integer unit;
 
-    @JsonProperty("rsi")
-    private Double rsi;
+    @JsonProperty("rsi_value")
+    private Double rsiValue;
 
     @JsonProperty("range")
     private Double range;

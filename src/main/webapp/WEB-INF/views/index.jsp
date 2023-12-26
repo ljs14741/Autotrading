@@ -215,7 +215,9 @@
             {data: 'high_price'},
             {data: 'low_price'},
             {data: 'trade_price'},
-            {data: 'rsi_value'}
+            {data: 'rsi_value'},
+            {data: 'buy_day'},
+            {data: 'earnings'}
           ]
         });
         $("#tb5").css('display','inline');
@@ -380,6 +382,8 @@
       <th>저가</th>
       <th>종가</th>
       <th>rsi</th>
+      <th>매수시점</th>
+      <th>수익률</th>
     </tr>
     </thead>
   </table>

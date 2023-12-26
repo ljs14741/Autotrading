@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 @Service
 @Slf4j
 public class JinsuBackTestingService {
@@ -41,6 +43,12 @@ public class JinsuBackTestingService {
 
     private String currentDateString;
 
+
+    private Double firstTradePrice; // 매수한날 종가
+    private Double nowTradePrice; // 현재가
+    private Double earnings; // 수익률
+    private String chk = "0";
+
     public JinsuBackTestingService(CandleRepository candleRepository, RsiRepository rsiRepository, CandleRsiRepository candleRsiRepository) {
         this.candleRepository = candleRepository;
         this.rsiRepository = rsiRepository;
@@ -55,7 +63,7 @@ public class JinsuBackTestingService {
 
 
         // 1. 코인 정보
-        String url = "https://api.upbit.com/v1/candles/days?market=" + userCondition.getMarket() + "&to="+ currentDateString + "&count=10";
+        String url = "https://api.upbit.com/v1/candles/days?market=" + userCondition.getMarket() + "&to="+ currentDateString + "&count=200";
         String data = requestUpbit.request(url);
         JSONArray jsonArray = new JSONArray(data);
         List<CandleDTO> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDTO>() {
@@ -81,10 +89,32 @@ public class JinsuBackTestingService {
             rsiRepository.save(rsi);
         }
 
-        // 3. 1번 2번 조인 및 수익률계산
+        // 3. 1번 2번 조인 및 매수시점, 수익률계산
+        // 3-1 조인
         List<CandleDTO> qwer = GetJoinResults();
         log.info("하하하" + qwer);
 
+        // 3-2 매수시점 및 수익률계산
+        for(int i=qwer.size()-1; i > -1; i--) {
+            log.info("테스트 i값 : " + i);
+            log.info("테스트rsi값 : " + qwer.get(i).getRsiValue());
+
+            if(qwer.get(i).getRsiValue() < 30 && !this.chk.equals("1")) {
+                qwer.get(i).setBuyDay("○");
+                this.firstTradePrice = qwer.get(i).getTradePrice();
+                log.info("firstTradePrice : " + this.firstTradePrice);
+                this.chk = "1";
+            }
+
+            if(this.chk.equals("1")) {
+                this.nowTradePrice = qwer.get(i).getTradePrice();
+                log.info("nowTradePrice : " + nowTradePrice);
+                this.earnings = Math.round(this.nowTradePrice/this.firstTradePrice*100) / 100.0;
+                log.info("earnings : " + earnings);
+                log.info("earningsround : " + Math.round(earnings));
+                qwer.get(i).setEarnings(earnings);
+            }
+        }
 
         // 4. 화면 반환
 //        List<CandleDTO> can = mapperService.mapAll(candleRepository.selectSQL(),CandleDTO.class);

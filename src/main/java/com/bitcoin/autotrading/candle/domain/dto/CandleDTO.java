@@ -59,6 +59,8 @@ public class CandleDTO {
     @JsonProperty("earnings")
     private Double earnings;
 
+    @JsonProperty("buy_day")
+    private String buyDay;
 
     public interface CandleProjection {
         String getMarket();

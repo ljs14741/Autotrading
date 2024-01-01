@@ -36,7 +36,7 @@ public class VolatilityBackTestingService {
         this.candleRepository = candleRepository;
     }
 
-    public List<CandleDTO> volatilityBackTesting() throws IOException, JSONException, InterruptedException {
+    public List<CandleDTO> volatilityBackTesting() throws Exception{
         String url = "https://api.upbit.com/v1/candles/days?market=KRW-XRP&to=2023-10-27 09:00:00&count=200";
         String data = requestUpbit.request(url);
         JSONArray jsonArray = new JSONArray(data);

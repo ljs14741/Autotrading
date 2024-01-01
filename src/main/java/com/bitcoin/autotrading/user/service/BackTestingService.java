@@ -95,7 +95,7 @@ public class BackTestingService {
 
 
         //1. RSI 계산
-        CandleDTO candleDTO = getIndex();
+        getIndex();
 
         //2. 조건 검증
         int isOrder = validation();
@@ -130,6 +130,13 @@ public class BackTestingService {
             return 1;  //매도
         }
         return 0;      //없음
+
+    }
+
+    public void isAbleTrade(){
+//        if(){
+//
+//        }
     }
 
     public void makeTransaction(int isOrder) {

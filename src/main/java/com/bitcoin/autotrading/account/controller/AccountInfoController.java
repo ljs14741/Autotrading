@@ -1,5 +1,6 @@
 package com.bitcoin.autotrading.account.controller;
 
+import com.bitcoin.autotrading.account.Repository.AccountRepository;
 import com.bitcoin.autotrading.account.service.AccountInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -15,14 +16,16 @@ import java.util.Map;
 
 
 @Controller
-@Slf4j
 public class AccountInfoController {
 
-    @Autowired
-    public AccountInfoService accoutninfoService;
+    private final AccountInfoService accoutninfoService;
+
+    public AccountInfoController(AccountInfoService accoutninfoService) {
+        this.accoutninfoService = accoutninfoService;
+    }
 
     @RequestMapping("/testAccountInfo")
-    public String accountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException {
+    public String accountInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Map<String, Object>> list = accoutninfoService.accountInfo();
         request.setAttribute("list", list);
         return "testAccountInfo";

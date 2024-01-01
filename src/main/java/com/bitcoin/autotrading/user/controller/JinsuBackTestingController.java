@@ -29,7 +29,7 @@ public class JinsuBackTestingController {
 
     @RequestMapping("/jinsuBackTestingController.jinsuBackTesting.do")
     @ResponseBody
-    public List<CandleDTO> jinsuBackTesting(@RequestBody UserCondition userCondition) throws IOException, JSONException, InterruptedException, ParseException {
+    public List<CandleDTO> jinsuBackTesting(@RequestBody UserCondition userCondition) throws Exception {
         log.info("진수백테스팅 테스드");
         log.info("request userCondition: " + userCondition);
         List<CandleDTO> responseParam = jinsuBackTestingService.JinsuBackTesting(userCondition);

@@ -15,12 +15,12 @@ import java.security.NoSuchAlgorithmException;
 public class RequestOrderController {
 
 
-//    @Autowired
-//    private RequestOrderService requestOrderService;
-//
-//    @RequestMapping("/testRequestOrder.do")
-//    public String accountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, NoSuchAlgorithmException {
-//        requestOrderService.main();
-//        return "testRequestOrder";
-//    }
+    @Autowired
+    private RequestOrderService requestOrderService;
+
+    @RequestMapping("/testRequestOrder.do")
+    public String accountInfo(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, NoSuchAlgorithmException {
+        requestOrderService.main();
+        return "testRequestOrder";
+    }
 }

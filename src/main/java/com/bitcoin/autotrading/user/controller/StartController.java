@@ -28,7 +28,7 @@ public class StartController {
     public AccountInfoService accountInfoService;
 
     @RequestMapping("/")
-    public String index(Model model) throws Exception{
+    public String index(Model model) throws IOException, JSONException, ParseException {
         accountInfoService.accountInfoSave();
         List<Account> accountList = accountInfoService.accountSelect();
         int balance = (int)Math.floor(accountList.get(0).getBalance());

@@ -21,7 +21,7 @@ public class GetRsi {
     @Autowired
     private RequestUpbit requestUpbit;
 
-    public double getRsi(String dttm, String unit, String market) throws Exception {
+    public double getRsi(String dttm, String unit, String market) throws IOException, JSONException, ParseException {
 
         String url = "https://api.upbit.com/v1/candles/"+unit+"?market="+market+"&to="+dttm+"&count=200";
         String data = requestUpbit.request(url);

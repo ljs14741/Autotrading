@@ -35,7 +35,7 @@ public class JsonTransfer {
         }
     }
 
-    public static List<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) throws Exception {
+    public static List<Map<String, Object>> getListMapFromJsonArray(JSONArray jsonArray) throws JSONException {
         if (ObjectUtils.isEmpty(jsonArray)) {
             log.error("jsonArray is null.");
             throw new IllegalArgumentException("jsonArray is null");
@@ -64,7 +64,7 @@ public class JsonTransfer {
         }
     }
 
-    public static <T> List<T> getListObjectFromJSONObject(JSONArray jsonArray, TypeReference<T> type) throws Exception{
+    public static <T> List<T> getListObjectFromJSONObject(JSONArray jsonArray, TypeReference<T> type) throws JSONException{
         if (ObjectUtils.isEmpty(jsonArray)) {
             log.error("jsonArray is null.");
             throw new IllegalArgumentException("jsonArray is null");

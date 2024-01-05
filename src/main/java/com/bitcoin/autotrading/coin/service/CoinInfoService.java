@@ -31,7 +31,7 @@ public class CoinInfoService {
 
     
     // 여기서 트랜잭션 잡으면 실패가 나오면 롤백
-    public List<CoinPriceDTO> coinInfoSave() throws Exception {
+    public List<CoinPriceDTO> coinInfoSave() throws IOException, JSONException {
 //        this.coinKind = coinKindService.coinKind();
         String coinKind = coinKindService.coinKind();
         log.info("coinKind: " + coinKind);

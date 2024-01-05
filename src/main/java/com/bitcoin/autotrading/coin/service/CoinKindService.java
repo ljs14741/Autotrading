@@ -21,7 +21,7 @@ public class CoinKindService {
         public String coinKind = "=";
         public String temp = null;
 
-        public String coinKind() throws Exception{
+        public String coinKind() throws IOException, JSONException {
 
         this.coinKind = "=";
         this.temp = null;

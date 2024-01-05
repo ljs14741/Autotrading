@@ -24,7 +24,7 @@ public class BackTestingController {
     BackTestingService backTestingService;
 
     @RequestMapping("/testFromToTrading")
-    public String fromToTradingView(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String fromToTradingView(HttpServletRequest request, HttpServletResponse response) throws IOException, InterruptedException, JSONException, ParseException, IllegalAccessException {
 
         return "testFromToTrading";
     }

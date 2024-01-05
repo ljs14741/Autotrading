@@ -55,7 +55,7 @@ public class JinsuBackTestingService {
         this.candleRsiRepository = candleRsiRepository;
     }
 
-    public List<CandleDTO> JinsuBackTesting(UserCondition userCondition) throws Exception{
+    public List<CandleDTO> JinsuBackTesting(UserCondition userCondition) throws JSONException, IOException, ParseException {
         // 0. 파라미터 받기
         this.currentDateString = userCondition.getSrtDttm().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         LocalDateTime curruntDate = userCondition.getSrtDttm();

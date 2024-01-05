@@ -6,6 +6,7 @@ import com.bitcoin.autotrading.account.domain.entity.Account;
 import com.bitcoin.autotrading.account.domain.dto.AccountDTO;
 import com.bitcoin.autotrading.common.JsonTransfer;
 import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -13,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
+@Slf4j
 // 전체계좌조회
 public class AccountInfoService {
     private final AccountRepository accountRepository;
@@ -29,7 +32,7 @@ public class AccountInfoService {
     }
 
     //@Scheduled(fixedDelay = 1000000) //일정시간마다 아래 함수 실행하는 스케쥴러 (1000 -> 1초)
-    public List<Map<String, Object>> accountInfo() throws Exception {
+    public List<Map<String, Object>> accountInfo() throws JSONException {
         String accessKey = System.getenv("UPBIT_OPEN_API_ACCESS_KEY");
         String secretKey = System.getenv("UPBIT_OPEN_API_SECRET_KEY");
         String serverUrl = System.getenv("UPBIT_OPEN_API_SERVER_URL");
@@ -62,7 +65,7 @@ public class AccountInfoService {
         return list;
     }
 
-    public void accountInfoSave() throws Exception {
+    public void accountInfoSave() throws JSONException {
 
         String accessKey = System.getenv("UPBIT_OPEN_API_ACCESS_KEY");
         String secretKey = System.getenv("UPBIT_OPEN_API_SECRET_KEY");
@@ -101,6 +104,7 @@ public class AccountInfoService {
 
     @Transactional
     public void accountInsert(AccountDTO accountDto) {
+        log.info("insertinsertinsert: " + accountDto);
 
         Account account = Account.builder()
                 .currency(accountDto.getCurrency())

@@ -33,7 +33,7 @@ public class VolatilityBackTestingController {
     @RequestMapping("/volatilityBackTestingController.volatilityBackTesting.do")
     @ResponseBody
     @Operation(summary =  "오퍼레이션", security = @SecurityRequirement(name = "bearerAuth"))
-    public List<CandleDTO> volatilityBackTesting(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public List<CandleDTO> volatilityBackTesting(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException, InterruptedException {
 //        String dttm = "2023-10-04 09:00:00";
 //        String unit = "minutes/240";
 //        String market = "KRW-XRP";

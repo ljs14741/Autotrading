@@ -42,7 +42,7 @@ public class CmdLine implements ApplicationRunner {
     java 빌드 구성에서 프로그램 인수 출력
     */
     @Override
-    public void run(final ApplicationArguments args) throws Exception {
+    public void run(final ApplicationArguments args) throws IOException, InterruptedException, NoSuchAlgorithmException, JSONException {
         for(int i=0; i<args.getSourceArgs().length; i++){
             log.info("input=["+args.getSourceArgs()[i]+"]");
             programLogRepository.save( ProgramLog.builder()

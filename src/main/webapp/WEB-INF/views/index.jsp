@@ -25,7 +25,7 @@
       $("#tb1").css('display','none');
       $("#tb2").css('display','none');
       $("#tb4").css('display','none');
-
+      $("#tb5").css('display','none');
     });
 
     function test(){
@@ -152,7 +152,7 @@
     }
 
     function volatilityBackTesting() {
-      var requestParam = "123"
+      var requestParam = "123";
       $.ajax({
         type: "POST",
         url: "/volatilityBackTestingController.volatilityBackTesting.do",
@@ -180,6 +180,47 @@
           ]
         });
         $("#tb4").css('display','inline');
+      }
+    }
+
+    function jinsuBackTesting() {
+      var data = {
+        market:$("select[name=market] option:selected").text(),
+        srt_dttm:$("#srt_dttm").val(),
+        end_dttm:$("#end_dttm").val()
+      };
+      var jsonStr = JSON.stringify(data); //입력 파라미터
+      $.ajax({
+        type: "POST",
+        url: "/jinsuBackTestingController.jinsuBackTesting.do",
+        data: jsonStr,
+        contentType: "application/json",
+        error: onError,
+        success: onSuccess5
+      });
+      function onSuccess5(data) {
+        alert("onSuccess5")
+        $("#tb5").dataTable({
+          lengthChange: false,
+          searching: false, // 검색 기능 숨기기
+          info: false, // 정보 표시 숨기기
+          paging: false, // 페이징 기능 숨기기
+
+          destroy: true, //테이블 초기화
+          data: data,
+          columns: [
+            {data: 'candle_date_time_kst'},
+            {data: 'market'},
+            {data: 'opening_price'},
+            {data: 'high_price'},
+            {data: 'low_price'},
+            {data: 'trade_price'},
+            {data: 'rsi_value'},
+            {data: 'buy_day'},
+            {data: 'earnings'}
+          ]
+        });
+        $("#tb5").css('display','inline');
       }
     }
 
@@ -281,6 +322,7 @@
   <button onclick="test()">백테스팅 시작</button>
   <button>자동거래 시작</button>
   <button onclick="volatilityBackTesting()">변동성돌파 백테스팅</button>
+  <button onclick="jinsuBackTesting()">진수의 백테스팅</button>
   <table id="tb1">
     <thead>
     <tr>
@@ -327,6 +369,22 @@
         <th>종가</th>
         <th>수익률</th>
       </tr>
+    </thead>
+  </table>
+
+  <table id="tb5">
+    <thead>
+    <tr>
+      <th>일자</th>
+      <th>코인</th>
+      <th>시가</th>
+      <th>고가</th>
+      <th>저가</th>
+      <th>종가</th>
+      <th>rsi</th>
+      <th>매수시점</th>
+      <th>수익률</th>
+    </tr>
     </thead>
   </table>
   <script type="text/javascript">

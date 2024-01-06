@@ -23,7 +23,7 @@ public class GetCandle {
     @Autowired
     private RequestUpbit requestUpbit;
 
-    public List<CandleDTO> getCandle(String dttm, String unit, String market, int cnt ) throws InterruptedException, IOException, JSONException {
+    public List<CandleDTO> getCandle(String dttm, String unit, String market, int cnt ) throws Exception {
 
         String url = "https://api.upbit.com/v1/candles/"+unit+"?market="+market+"&to="+dttm+"&count="+cnt;
         String data = requestUpbit.request(url);

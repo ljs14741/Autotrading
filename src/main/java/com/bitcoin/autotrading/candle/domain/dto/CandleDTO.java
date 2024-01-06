@@ -47,8 +47,8 @@ public class CandleDTO {
     @JsonProperty("unit")
     private Integer unit;
 
-    @JsonProperty("rsi")
-    private Double rsi;
+    @JsonProperty("rsi_value")
+    private Double rsiValue;
 
     @JsonProperty("range")
     private Double range;
@@ -59,6 +59,8 @@ public class CandleDTO {
     @JsonProperty("earnings")
     private Double earnings;
 
+    @JsonProperty("buy_day")
+    private String buyDay;
 
     public interface CandleProjection {
         String getMarket();

@@ -42,6 +42,7 @@
 - SwaggerUi - https://blog.naver.com/ljs14741/223294620254
 - JPA - https://blog.naver.com/ljs14741/223272796359
 - AWS - https://blog.naver.com/ljs14741/223277550867
+- h2 Database
 
 # 개선할 부분 
 - 자바 백엔드 개발자로 성장하기 위해서 스프링부트와 위의 기술들을 접목하여 프로그램을 만들었습니다.

@@ -6,7 +6,7 @@ import com.bitcoin.autotrading.candle.service.CalculateRsi;
 import com.bitcoin.autotrading.coin.domain.entity.CoinPrice;
 import com.bitcoin.autotrading.coin.service.CoinInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

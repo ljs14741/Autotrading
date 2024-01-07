@@ -7,9 +7,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONException;
 import org.springframework.stereotype.Component;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.util.List;

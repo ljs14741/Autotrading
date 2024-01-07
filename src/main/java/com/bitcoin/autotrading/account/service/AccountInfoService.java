@@ -13,8 +13,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

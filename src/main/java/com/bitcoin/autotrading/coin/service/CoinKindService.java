@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

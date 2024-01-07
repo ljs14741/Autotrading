@@ -67,6 +67,8 @@ dependencies {
 
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+    implementation group: 'org.json', name: 'json', version: '20200518'
 }
 
 tasks.named('test') {

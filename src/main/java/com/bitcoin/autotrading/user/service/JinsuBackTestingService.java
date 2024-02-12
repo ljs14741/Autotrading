@@ -63,7 +63,7 @@ public class JinsuBackTestingService {
 
 
         // 1. 코인 정보
-        String url = "https://api.upbit.com/v1/candles/days?market=" + userCondition.getMarket() + "&to="+ currentDateString + "&count=200";
+        String url = "https://api.upbit.com/v1/candles/days?market=" + userCondition.getMarket() + "&to="+ currentDateString + "&count=10";
         String data = requestUpbit.request(url);
         JSONArray jsonArray = new JSONArray(data);
         List<CandleDTO> list = JsonTransfer.getListObjectFromJSONObject(jsonArray, new TypeReference<CandleDTO>() {

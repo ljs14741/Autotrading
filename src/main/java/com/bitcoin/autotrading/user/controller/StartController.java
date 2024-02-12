@@ -29,10 +29,11 @@ public class StartController {
 
     @RequestMapping("/")
     public String index(Model model) throws IOException, JSONException, ParseException {
-        accountInfoService.accountInfoSave();
-        List<Account> accountList = accountInfoService.accountSelect();
-        int balance = (int)Math.floor(accountList.get(0).getBalance());
-        model.addAttribute("balance",balance);
+        /* 2024-02-12 계좌관리 임시주석 AWS EC2 서버 띄우려고*/
+//        accountInfoService.accountInfoSave();
+//        List<Account> accountList = accountInfoService.accountSelect();
+//        int balance = (int)Math.floor(accountList.get(0).getBalance());
+//        model.addAttribute("balance",balance);
 
         coinInfoService.coinInfoSave();
         List<CoinPrice> list = coinInfoService.coinPriceAllSelect();
